@@ -7,21 +7,23 @@ const createProxyCanvas = (width, height) => $("<canvas>").attr("width", width).
 
 const propTypes = {
     noWrap: PropTypes.bool,
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            tileX: PropTypes.number.isRequired,
-            tileY: PropTypes.number.isRequired,
-            squaresOfTile: PropTypes.arrayOf(
-                PropTypes.shape({
-                    x: PropTypes.number.isRequired,
-                    y: PropTypes.number.isRequired,
-                    color: PropTypes.string.isRequired,
-                    opacity: PropTypes.number.isRequired
-                }).isRequired
-            ).isRequired
-        })
-    ),
-    tileWidthInSquares: PropTypes.number.isRequired,
+    data: PropTypes.shape({
+        tiles: PropTypes.arrayOf(
+            PropTypes.shape({
+                x: PropTypes.number.isRequired,
+                y: PropTypes.number.isRequired,
+                squares: PropTypes.arrayOf(
+                    PropTypes.shape({
+                        x: PropTypes.number.isRequired,
+                        y: PropTypes.number.isRequired,
+                        color: PropTypes.string.isRequired,
+                        opacity: PropTypes.number.isRequired
+                    }).isRequired
+                ).isRequired
+            })
+        ),
+        tileWidthInSquares: PropTypes.number.isRequired
+    }),
     opacity: PropTypes.number,
     hidden: PropTypes.bool
 };
@@ -62,7 +64,7 @@ function drawImageDataToContext(ctx={} /*: object */, imageData={} /*: ImageData
 class HeatLayer extends CanvasTileLayer {
     squaresOfTile(tile={} /*: object */) /*: array<object> */ {
         const {data} = this.props;
-        return (data.find(d => d.tileX === tile.x && d.tileY === tile.y) || {squaresOfTile: []}).squaresOfTile;
+        return (data.tiles.find(t => t.x === tile.x && t.y === tile.y) || {squaresOfTile: []}).squaresOfTile;
     }
 
     draw() {
@@ -79,12 +81,12 @@ class HeatLayer extends CanvasTileLayer {
     _drawTileCanvas(tileCanvas={} /*: object */) {
         const ctx = tileCanvas.getContext("2d");
         initContext(ctx);
-        const imageData = this._prepareTileImageData(tileCanvas, squaresOfTile);
+        const imageData = this._prepareTileImageData(tileCanvas);
         drawImageDataToContext(ctx, imageData);
     }
 
     _prepareTileImageData(tileCanvas={} /*: object */) /*: ImageData */ {
-        const {tileWidthInSquares} = this.props;
+        const {tileWidthInSquares} = this.props.data;
 
         const ctx = tileCanvas.getContext("2d"),
             blankImageData = ctx.createImageData(tileWidthInSquares, tileWidthInSquares),
