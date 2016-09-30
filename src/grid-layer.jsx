@@ -7,9 +7,9 @@ const propTypes = {
     noWrap: PropTypes.bool,
     data: PropTypes.arrayOf(
         PropTypes.shape({
-            tx: PropTypes.number.isRequired,
-            ty: PropTypes.number.isRequired,
-            text: PropTypes.string.isRequired
+            tileX: PropTypes.number.isRequired,
+            tileY: PropTypes.number.isRequired,
+            tileText: PropTypes.string.isRequired
         })
     ),
     opacity: PropTypes.number,
@@ -26,7 +26,7 @@ const defaultProps = {
 class GridLayer extends CanvasTileLayer {
     tileText(tile={} /*: object */) /*: string */ {
         const {data} = this.props;
-        return data.find(d => d.tx === tile.x && d.ty === tile.y).text;
+        return data.find(d => d.tileX === tile.x && d.tileY === tile.y).tileText;
     }
 
     draw() {
