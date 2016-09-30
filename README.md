@@ -1,1 +1,1 @@
-# react-leaflet-customized
+# react-leaflet-extended

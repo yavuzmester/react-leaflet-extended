@@ -12,7 +12,6 @@ const propTypes = {
             text: PropTypes.string.isRequired
         })
     ),
-    createTileText: PropTypes.func.isRequired,
     opacity: PropTypes.number,
     hidden: PropTypes.bool
 };
