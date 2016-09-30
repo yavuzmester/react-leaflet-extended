@@ -1,0 +1,25 @@
+{
+    "name": "@yavuzmester/react-leaflet-customized",
+    "version": "0.0.1",
+    "description": "react leaflet customized",
+    "keywords": ["react", "leaflet", "custom"],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yavuzmester/react-leaflet-customized"
+    },
+    "dependencies": {
+        "react": "^15.0.2",
+        "react-dom": "^15.0.2",
+        "leaflet": "^0.7.7",
+        "leaflet-draw": "^0.3.2",
+        "leaflet.markercluster": "^0.5.0",
+        "react-leaflet": "^0.12.2",
+        "hex-rgb": "1.0.0",
+        "underscore": "1.8.3"
+    },
+    "browserify": {
+        "transform": [["babelify", {"presets": ["react"]}]]
+    },
+    "author": "Yavuz Mester",
+    "license": "MIT"
+}
