@@ -1,11 +1,11 @@
 {
-    "name": "@yavuzmester/customize-react-leaflet",
+    "name": "@yavuzmester/react-leaflet-extended",
     "version": "0.0.1",
-    "description": "customize react leaflet",
-    "keywords": ["react", "leaflet", "custom"],
+    "description": "react leaflet extended",
+    "keywords": ["react", "leaflet", "custom", "extend"],
     "repository": {
         "type": "git",
-        "url": "https://github.com/yavuzmester/customize-react-leaflet"
+        "url": "https://github.com/yavuzmester/react-leaflet-extended"
     },
     "dependencies": {
         "react": "^15.0.2",
