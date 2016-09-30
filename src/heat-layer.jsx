@@ -66,7 +66,7 @@ function drawImageDataToContext(ctx={} /*: object */, imageData={} /*: ImageData
 class HeatLayer extends CanvasTileLayer {
     squaresOfTile(tile={} /*: object */) /*: array<object> */ {
         const {data} = this.props;
-        return (data.tiles.find(t => t.x === tile.x && t.y === tile.y) || {squaresOfTile: []}).squaresOfTile;
+        return (data.tiles.find(t => t.x === tile.x && t.y === tile.y) || {squares: []}).squares;
     }
 
     draw() {
