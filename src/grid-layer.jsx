@@ -28,7 +28,7 @@ const defaultProps = {
 class GridLayer extends CanvasTileLayer {
     tileText(tile={} /*: object */) /*: string */ {
         const {data} = this.props;
-        return data.tiles.find(t => t.x === tile.x && t.y === tile.y).tileText;
+        return data.tiles.find(t => t.x === tile.x && t.y === tile.y).text;
     }
 
     draw() {
