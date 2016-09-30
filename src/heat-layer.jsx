@@ -9,9 +9,9 @@ const propTypes = {
     noWrap: PropTypes.bool,
     data: PropTypes.arrayOf(
         PropTypes.shape({
-            tx: PropTypes.number.isRequired,
-            ty: PropTypes.number.isRequired,
-            squares: PropTypes.arrayOf(
+            tileX: PropTypes.number.isRequired,
+            tileY: PropTypes.number.isRequired,
+            squaresOfTile: PropTypes.arrayOf(
                 PropTypes.shape({
                     x: PropTypes.number.isRequired,
                     y: PropTypes.number.isRequired,
@@ -21,7 +21,7 @@ const propTypes = {
             ).isRequired
         })
     ),
-    tWidthInSquares: PropTypes.number.isRequired,
+    tileWidthInSquares: PropTypes.number.isRequired,
     opacity: PropTypes.number,
     hidden: PropTypes.bool
 };
@@ -60,9 +60,9 @@ function drawImageDataToContext(ctx={} /*: object */, imageData={} /*: ImageData
 }
 
 class HeatLayer extends CanvasTileLayer {
-    squares(tile={} /*: object */) /*: array<object> */ {
+    squaresOfTile(tile={} /*: object */) /*: array<object> */ {
         const {data} = this.props;
-        return (data.find(d => d.tx === tile.x && d.ty === tile.y) || {squares: []}).squares;
+        return (data.find(d => d.tileX === tile.x && d.tileY === tile.y) || {squaresOfTile: []}).squaresOfTile;
     }
 
     draw() {
@@ -79,19 +79,19 @@ class HeatLayer extends CanvasTileLayer {
     _drawTileCanvas(tileCanvas={} /*: object */) {
         const ctx = tileCanvas.getContext("2d");
         initContext(ctx);
-        const imageData = this._prepareTileImageData(tileCanvas, squares);
+        const imageData = this._prepareTileImageData(tileCanvas, squaresOfTile);
         drawImageDataToContext(ctx, imageData);
     }
 
     _prepareTileImageData(tileCanvas={} /*: object */) /*: ImageData */ {
-        const {tWidthInSquares} = this.props;
+        const {tileWidthInSquares} = this.props;
 
         const ctx = tileCanvas.getContext("2d"),
-            blankImageData = ctx.createImageData(tWidthInSquares, tWidthInSquares),
+            blankImageData = ctx.createImageData(tileWidthInSquares, tileWidthInSquares),
             tile = tileCanvas._tilePoint,
-            squares = this.squares(tile);
+            squaresOfTile = this.squaresOfTile(tile);
 
-        return squares.reduce((memo, s) => {
+        return squaresOfTile.reduce((memo, s) => {
             const idx = (memo.height - 1 - s.y) * memo.width + s.x,
                 [r, g, b] = hexToRgb(s.color),
                 a = Math.max(0, Math.min(255, s.opacity)) * 255;
