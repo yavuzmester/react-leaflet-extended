@@ -30,7 +30,7 @@ const propTypes = {
 
 const defaultProps = {
     noWrap: true,
-    data: [],
+    data: {},
     opacity: 1,
     hidden: false
 };

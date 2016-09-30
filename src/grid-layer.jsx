@@ -5,20 +5,22 @@ const CanvasTileLayer = require("./canvas-tile-layer");
 
 const propTypes = {
     noWrap: PropTypes.bool,
-    data: PropTypes.arrayOf(
-        PropTypes.shape({
-            tileX: PropTypes.number.isRequired,
-            tileY: PropTypes.number.isRequired,
-            tileText: PropTypes.string.isRequired
-        })
-    ),
+    data: PropTypes.shape({
+        tiles: PropTypes.arrayOf(
+            PropTypes.shape({
+                x: PropTypes.number.isRequired,
+                y: PropTypes.number.isRequired,
+                text: PropTypes.string.isRequired
+            })
+        ).isRequired
+    }),
     opacity: PropTypes.number,
     hidden: PropTypes.bool
 };
 
 const defaultProps = {
     noWrap: true,
-    data: [],
+    data: {},
     opacity: 1,
     hidden: false
 };
@@ -26,7 +28,7 @@ const defaultProps = {
 class GridLayer extends CanvasTileLayer {
     tileText(tile={} /*: object */) /*: string */ {
         const {data} = this.props;
-        return data.find(d => d.tileX === tile.x && d.tileY === tile.y).tileText;
+        return data.tiles.find(t => t.x === tile.x && t.y === tile.y).tileText;
     }
 
     draw() {
