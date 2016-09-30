@@ -104,6 +104,8 @@ class HeatLayer extends CanvasTileLayer {
             memo.data[idx * 4 + 1] = g;
             memo.data[idx * 4 + 2] = b;
             memo.data[idx * 4 + 3] = a;
+
+            return memo;
         }, blankImageData);
     }
 
