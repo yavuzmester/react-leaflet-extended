@@ -18,11 +18,11 @@ const propTypes = {
                         y: PropTypes.number.isRequired,
                         color: PropTypes.string.isRequired,
                         opacity: PropTypes.number.isRequired
-                    }).isRequired
+                    })
                 ).isRequired
             })
         ),
-        tileWidthInSquares: PropTypes.number.isRequired
+        tileWidthInSquares: PropTypes.number
     }),
     opacity: PropTypes.number,
     hidden: PropTypes.bool
@@ -30,7 +30,9 @@ const propTypes = {
 
 const defaultProps = {
     noWrap: true,
-    data: {},
+    data: {
+        tiles: []
+    },
     opacity: 1,
     hidden: false
 };

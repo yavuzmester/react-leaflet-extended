@@ -12,7 +12,7 @@ const propTypes = {
                 y: PropTypes.number.isRequired,
                 text: PropTypes.string.isRequired
             })
-        ).isRequired
+        )
     }),
     opacity: PropTypes.number,
     hidden: PropTypes.bool
@@ -20,7 +20,9 @@ const propTypes = {
 
 const defaultProps = {
     noWrap: true,
-    data: {},
+    data: {
+        tiles: []
+    },
     opacity: 1,
     hidden: false
 };

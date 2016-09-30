@@ -10,7 +10,7 @@ const propTypes = {
         PropTypes.shape({
             lat: PropTypes.number.isRequired,
             lng: PropTypes.number.isRequired
-        }).isRequired
+        })
     ).isRequired
 };
 
