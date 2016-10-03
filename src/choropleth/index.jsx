@@ -1,6 +1,7 @@
 "use strict";
 
 const {PropTypes} = require("react");
+const L = require("leaflet");
 const {GeoJson} = require("react-leaflet");
 
 const propTypes = {
@@ -42,9 +43,16 @@ class ChoroplethLayer extends GeoJson {
         this.onFeatureMouseOver = this.onFeatureMouseOver.bind(this);
         this.onFeatureMouseOut = this.onFeatureMouseOut.bind(this);
         this.onFeatureClick = this.onFeatureClick.bind(this);
+    }
 
-        this.setStyle(this.style);
-        this.options.onEachFeature = this.onEachFeature;
+    componentWillMount () {
+        const {data} = this.props,
+            options = {
+                style: this.style,
+                onEachFeature: this.onEachFeature
+            };
+
+        this.leafletElement = L.geoJson(data, options);
     }
 
     titleForCategory(category /*: string */) /*: string */ {
