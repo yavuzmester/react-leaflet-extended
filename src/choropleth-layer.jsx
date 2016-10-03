@@ -40,7 +40,7 @@ class ChoroplethLayer extends GeoJson {
 
         this.style = this.style.bind(this);
         this.onEachFeature = this.onEachFeature.bind(this);
-        this.resetStyle = this.leafletElement.resetStyle.bind(this.leafletElement);
+        this.resetStyle = this.leafletElement.resetStyle.bind(this.leafletElement); //uses our style function to reset styles
     }
 
     componentWillMount () {
