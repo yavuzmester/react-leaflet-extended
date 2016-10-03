@@ -14,8 +14,7 @@ const propTypes = {
             })
         )
     }),
-    opacity: PropTypes.number,
-    hidden: PropTypes.bool
+    opacity: PropTypes.number
 };
 
 const defaultProps = {
@@ -23,8 +22,7 @@ const defaultProps = {
     data: {
         tiles: []
     },
-    opacity: 1,
-    hidden: false
+    opacity: 1
 };
 
 class GridLayer extends CanvasTileLayer {
@@ -34,13 +32,8 @@ class GridLayer extends CanvasTileLayer {
     }
 
     draw() {
-        const {hidden} = this.props;
-
         if (this.leafletElement._tileContainer) {
             this.leafletElement._reset();
-        }
-
-        if (!hidden) {
             this.leafletElement._update();
             this.tileCanvases().forEach(tc => this._drawTileCanvas(tc));
         }
