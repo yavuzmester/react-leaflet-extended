@@ -26,8 +26,8 @@ class ChoroplethInfoControl extends MapControl {
         this.leafletElement = leafletElement;
     }
 
-    componentDidUpdate() {
-        super.componentDidUpdate();
+    componentDidUpdate(prevProps={} /*: object */) {
+        super.componentDidUpdate(prevProps);
 
         const {where, what} = this.props,
             visibility = where && what;

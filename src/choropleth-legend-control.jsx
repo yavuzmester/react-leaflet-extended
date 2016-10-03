@@ -32,8 +32,8 @@ class ChoroplethLegendControl extends MapControl {
         this.leafletElement = leafletElement;
     }
 
-    componentDidUpdate() {
-        super.componentDidUpdate();
+    componentDidUpdate(prevProps={} /*: object */) {
+        super.componentDidUpdate(prevProps);
 
         const {extents} = this.props;
 
