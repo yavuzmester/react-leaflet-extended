@@ -15,7 +15,7 @@ class ChoroplethInfoControl extends MapControl {
         leafletElement.onAdd = function() {
             const container = L.DomUtil.create("div", "geo-choropleth-info");
             container.innerHTML = "<br/><br/>";
-            container.visibility = "hidden";
+            container.style.visibility = "hidden";
 
             leafletElement._container = container;
             return container;
@@ -38,8 +38,8 @@ class ChoroplethInfoControl extends MapControl {
     }
 
     reset() {
-        this.leafletElement.container.innerHTML = "<br/><br/>";
-        this.leafletElement.container.visibility = "hidden";
+        this.leafletElement._container.innerHTML = "<br/><br/>";
+        this.leafletElement._container.style.visibility = "hidden";
     }
 }
 
