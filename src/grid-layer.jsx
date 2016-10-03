@@ -34,9 +34,10 @@ class GridLayer extends CanvasTileLayer {
     draw() {
         if (this.leafletElement._tileContainer) {
             this.leafletElement._reset();
-            this.leafletElement._update();
-            this.tileCanvases().forEach(tc => this._drawTileCanvas(tc));
         }
+
+        this.leafletElement._update();
+        this.tileCanvases().forEach(tc => this._drawTileCanvas(tc));
     }
 
     _drawTileCanvas(tileCanvas={} /*: object */) {
