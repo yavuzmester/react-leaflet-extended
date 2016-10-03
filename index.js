@@ -6,6 +6,7 @@ const CanvasTileLayer = require("./src/canvas-tile-layer");
 const GridLayer = require("./src/grid-layer");
 const HeatLayer = require("./src/heat-layer");
 const MarkerClusterGroupLayer = require("./src/marker-cluster-group-layer");
+const ChoroplethLayer = require("./src/choropleth");
 
 module.exports = {
     Map: Map,
@@ -13,5 +14,6 @@ module.exports = {
     CanvasTileLayer: CanvasTileLayer,
     GridLayer: GridLayer,
     HeatLayer: HeatLayer,
-    MarkerClusterGroupLayer: MarkerClusterGroupLayer
+    MarkerClusterGroupLayer: MarkerClusterGroupLayer,
+    ChoroplethLayer: ChoroplethLayer
 };
