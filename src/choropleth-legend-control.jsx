@@ -24,7 +24,7 @@ class ChoroplethLegendControl extends MapControl {
         const leafletElement = L.control(this.props);
 
         leafletElement.onAdd = function() {
-            const container = L.DomUtil.create("div", "geo-choropleth-legend");
+            const container = L.DomUtil.create("div", "geo-choropleth-legend  visibility-hidden");
             leafletElement._container = container;
             return container;
         };
@@ -42,6 +42,8 @@ class ChoroplethLegendControl extends MapControl {
                     <i style=${"background:" + e.color}></i> ${e.extent.join("-")} <br/>
                 `;
         }, "");
+
+        L.DomUtil.removeClass(this.leafletElement._container, "visibility-hidden");
     }
 }
 
