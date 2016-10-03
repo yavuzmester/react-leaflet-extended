@@ -21,7 +21,10 @@ const propTypes = {
             category: PropTypes.string.isRequired,
             categoryTitle: PropTypes.string.isRequired
         })
-    )
+    ),
+    onFeatureMouseOver: PropTypes.func,
+    onFeatureMouseOut: PropTypes.func,
+    onFeatureClick: PropTypes.func
 };
 
 const defaultProps = {
@@ -40,9 +43,6 @@ class ChoroplethLayer extends GeoJson {
 
         this.style = this.style.bind(this);
         this.onEachFeature = this.onEachFeature.bind(this);
-        this.onFeatureMouseOver = this.onFeatureMouseOver.bind(this);
-        this.onFeatureMouseOut = this.onFeatureMouseOut.bind(this);
-        this.onFeatureClick = this.onFeatureClick.bind(this);
     }
 
     componentWillMount () {
@@ -85,44 +85,13 @@ class ChoroplethLayer extends GeoJson {
     }
 
     onEachFeature(feature /*: object */, layer /*: object */) {
+        const {onFeatureMouseOver, onFeatureMouseOut, onFeatureClick} = this.props;
+
         layer.on({
-            mouseover: this.onFeatureMouseOver,
-            mouseout: this.onFeatureMouseOut,
-            click: this.onFeatureClick
+            mouseover: onFeatureMouseOver,
+            mouseout: onFeatureMouseOut,
+            click: onFeatureClick
         });
-    }
-
-    onFeatureMouseOver(e={} /*: object */) {
-        const {categoryData} = this.props;
-
-        if (categoryData.length > 0) {
-            const layer = e.target,
-                feature = layer.feature,
-                category = categoryFromFeature(feature),
-                datum = categoryData.find(d => d.category === category),
-                categoryTitle = this.titleForCategory(datum.category),
-                value = datum.value;
-
-            layer.setStyle({
-                weight: 5,
-                color: "#666666",
-                dashArray: "",
-                fillOpacity: 0.8
-            });
-
-            layer.bringToFront();
-
-            //this._infoBox.update(categoryTitle, value);
-        }
-    }
-
-    onFeatureMouseOut(e={} /*: object */) {
-        this.leafletElement.resetStyle(e.target);      //uses our style function to reset styles
-        //this._infoBox.reset();
-    }
-
-    onFeatureClick(e={} /*: object */) {
-        e.target._map.fitBounds(e.target.getBounds());
     }
 
     shouldComponentUpdate() {

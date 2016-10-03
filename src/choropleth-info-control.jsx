@@ -4,11 +4,6 @@ const {PropTypes} = require("react");
 const {MapControl} = require("react-leaflet");
 const L = require("leaflet");
 
-const propTypes = {
-    where: PropTypes.string,
-    what: PropTypes.string
-};
-
 const defaultProps = {
     position: "bottomleft"
 };
@@ -26,11 +21,8 @@ class ChoroplethInfoControl extends MapControl {
         this.leafletElement = leafletElement;
     }
 
-    componentDidUpdate(prevProps={} /*: object */) {
-        super.componentDidUpdate(prevProps);
-
-        const {where, what} = this.props,
-            visibility = where && what;
+    update(where="" /*: string */, what="" /*: string */) {
+        const visibility = where && what;
 
         this.leafletElement._container.innerHTML = `
                 <b>${where || ""}</b>
@@ -40,9 +32,12 @@ class ChoroplethInfoControl extends MapControl {
 
         this.leafletElement._container.style.visibility = visibility ? "visible" : "hidden";
     }
+
+    reset() {
+        this.update();
+    }
 }
 
-ChoroplethInfoControl.propTypes = ChoroplethInfoControl.propTypes;
 ChoroplethInfoControl.defaultProps = defaultProps;
 
 module.exports = ChoroplethInfoControl;
