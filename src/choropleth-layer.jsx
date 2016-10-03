@@ -52,11 +52,6 @@ class ChoroplethLayer extends GeoJson {
         this.leafletElement = L.geoJson(data, options);
     }
 
-    titleForCategory(category /*: string */) /*: string */ {
-        const {categoryTitles} = this.props;
-        return (categoryTitles.find(ct => ct.category === category) || {categoryTitle: category}).categoryTitle;
-    }
-
     style(feature /*: object */) /*: object */ {
         const {categoryData, categoryFromFeature} = this.props;
 
