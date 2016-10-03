@@ -22,6 +22,7 @@ const propTypes = {
             categoryTitle: PropTypes.string.isRequired
         })
     ),
+    categoryFromFeature: PropTypes.func,
     onFeatureMouseOver: PropTypes.func,
     onFeatureMouseOut: PropTypes.func,
     onFeatureClick: PropTypes.func
@@ -32,10 +33,6 @@ const defaultProps = {
     categoryData: [],
     categoryTitles: []
 };
-
-function categoryFromFeature(feature /*: object */) /*: string */ {
-    return Number(feature.properties.tags["ISO3166-2"].split("-")[1]).toString();
-}
 
 class ChoroplethLayer extends GeoJson {
     constructor(props={} /*: object */, context={} /*: object */) {
@@ -61,7 +58,7 @@ class ChoroplethLayer extends GeoJson {
     }
 
     style(feature /*: object */) /*: object */ {
-        const {categoryData} = this.props;
+        const {categoryData, categoryFromFeature} = this.props;
 
         if (categoryData.length > 0) {
             const category = categoryFromFeature(feature),
