@@ -13,25 +13,35 @@ const propTypes = {
             category: PropTypes.string.isRequired,
             color: PropTypes.string.isRequired
         }).isRequired
+    ),
+    categoryTitles: PropTypes.arrayOf(
+        PropTypes.shape({
+            category: PropTypes.string.isRequired,
+            categoryTitle: PropTypes.string.isRequired
+        })
     )
 };
 
 const defaultProps = {
     data: [],
-    categoryData: []
+    categoryData: [],
+    categoryTitles: []
 };
 
 class ChoroplethLayer extends GeoJson {
     constructor(props={} /*: object */, context={} /*: object */) {
-        //props.style = this.style.bind(this);
-        //props.onEachFeature = this.onEachFeature.bind(this);
+        props.style = this.style.bind(this);
+        props.onEachFeature = this.onEachFeature.bind(this);
         super(props, context);
 
-        this.style = this.style.bind(this);
-        this.onEachFeature = this.onEachFeature.bind(this);
         this.onFeatureMouseOver = this.onFeatureMouseOver.bind(this);
         this.onFeatureMouseOut = this.onFeatureMouseOut.bind(this);
         this.onFeatureClick = this.onFeatureClick.bind(this);
+    }
+
+    categoryTitle(category) {
+        const {categoryTitles} = this.props;
+        return (categoryTitles.find(ct => ct.category === category) || {categoryTitle: category}).categoryTitle;
     }
 
     style(feature /*: object */) /*: object */ {
@@ -74,7 +84,7 @@ class ChoroplethLayer extends GeoJson {
                 feature = layer.feature,
                 category = this._categoryFromFeature(feature),
                 datum = categoryData.find(d => d.category === category),
-                categoryTitle = datum.categoryTitle || datum.category,
+                categoryTitle = this.categoryTitle(datum.category),
                 value = datum.value;
 
             layer.setStyle({
@@ -86,13 +96,13 @@ class ChoroplethLayer extends GeoJson {
 
             layer.bringToFront();
 
-            this._infoBox.update(categoryTitle, value);
+            //this._infoBox.update(categoryTitle, value);
         }
     }
 
     onFeatureMouseOut(e={} /*: object */) {
         this.resetStyle(e.target);      //uses our style function to reset styles
-        this._infoBox.reset();
+        //this._infoBox.reset();
     }
 
     onFeatureClick(e={} /*: object */) {
