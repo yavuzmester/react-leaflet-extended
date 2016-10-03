@@ -117,7 +117,7 @@ class ChoroplethLayer extends GeoJson {
     }
 
     onFeatureMouseOut(e={} /*: object */) {
-        this.resetStyle(e.target);      //uses our style function to reset styles
+        this.leafletElement.resetStyle(e.target);      //uses our style function to reset styles
         //this._infoBox.reset();
     }
 
