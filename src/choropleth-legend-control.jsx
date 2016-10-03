@@ -19,7 +19,7 @@ const defaultProps = {
     position: "bottomleft"
 };
 
-class ChoroplethLegend extends MapControl {
+class ChoroplethLegendControl extends MapControl {
     componentWillMount() {
         const leafletElement = L.control(this.props);
 
@@ -45,7 +45,7 @@ class ChoroplethLegend extends MapControl {
     }
 }
 
-ChoroplethLegend.propTypes = propTypes;
-ChoroplethLegend.defaultProps = defaultProps;
+ChoroplethLegendControl.propTypes = propTypes;
+ChoroplethLegendControl.defaultProps = defaultProps;
 
-module.exports = ChoroplethLegend;
+module.exports = ChoroplethLegendControl;
