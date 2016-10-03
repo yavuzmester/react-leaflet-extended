@@ -42,7 +42,7 @@ function datumToPopupHtml(datum={} /*: object */) /*: string */ {
         else {
             return memo;
         }
-    }).join("\n");
+    }, "").join("\n");
 }
 
 class MarkerClusterGroupLayer extends RL_MapLayer {
