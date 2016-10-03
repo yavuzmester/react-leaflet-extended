@@ -37,7 +37,9 @@ class ChoroplethLayer extends GeoJson {
     constructor(props={} /*: object */, context={} /*: object */) {
         const {categoryData, categoryTitles} = props;
 
-        const titleForCategory = (categoryTitles.find(ct => ct.category === category) || {categoryTitle: category}).categoryTitle;
+        function titleForCategory(category /*: string */) /*: string */ {
+            return (categoryTitles.find(ct => ct.category === category) || {categoryTitle: category}).categoryTitle;
+        }
 
         function style(feature /*: object */) /*: object */ {
             if (categoryData.length > 0) {
