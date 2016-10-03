@@ -35,7 +35,7 @@ function categoryFromFeature(feature /*: object */) /*: string */ {
 
 class ChoroplethLayer extends GeoJson {
     constructor(props={} /*: object */, context={} /*: object */) {
-        const {categoryData, categoryTitles} = props;
+        const {data, categoryData, categoryTitles} = props;
 
         function titleForCategory(category /*: string */) /*: string */ {
             return (categoryTitles.find(ct => ct.category === category) || {categoryTitle: category}).categoryTitle;
@@ -102,7 +102,14 @@ class ChoroplethLayer extends GeoJson {
             e.target._map.fitBounds(e.target.getBounds());
         }
 
-        super(props, context);
+        super(
+            {
+                data: data,
+                style: style,
+                onEachFeature: onEachFeature
+            },
+            context
+        );
     }
 
     shouldComponentUpdate() {
