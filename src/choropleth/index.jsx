@@ -11,6 +11,7 @@ const propTypes = {
     categoryData: PropTypes.arrayOf(
         PropTypes.shape({
             category: PropTypes.string.isRequired,
+            value: PropTypes.number.isRequired,
             color: PropTypes.string.isRequired
         }).isRequired
     ),
@@ -28,89 +29,78 @@ const defaultProps = {
     categoryTitles: []
 };
 
+function categoryFromFeature(feature /*: object */) /*: string */ {
+    return Number(feature.properties.tags["ISO3166-2"].split("-")[1]).toString();
+}
+
 class ChoroplethLayer extends GeoJson {
     constructor(props={} /*: object */, context={} /*: object */) {
-        props.style = this.style.bind(this);
-        props.onEachFeature = this.onEachFeature.bind(this);
-        super(props, context);
+        const {categoryData, categoryTitles} = props;
 
-        this.onFeatureMouseOver = this.onFeatureMouseOver.bind(this);
-        this.onFeatureMouseOut = this.onFeatureMouseOut.bind(this);
-        this.onFeatureClick = this.onFeatureClick.bind(this);
-    }
+        const titleForCategory = (categoryTitles.find(ct => ct.category === category) || {categoryTitle: category}).categoryTitle;
 
-    categoryTitle(category) {
-        const {categoryTitles} = this.props;
-        return (categoryTitles.find(ct => ct.category === category) || {categoryTitle: category}).categoryTitle;
-    }
+        function style(feature /*: object */) /*: object */ {
+            if (categoryData.length > 0) {
+                const category = categoryFromFeature(feature),
+                    color = categoryData.find(d => d.category === category).color;
 
-    style(feature /*: object */) /*: object */ {
-        const {categoryData} = this.props;
-
-        if (categoryData.length > 0) {
-            const category = this._categoryFromFeature(feature),
-                color = categoryData.find(d => d.category === category).color;
-
-            return {
-                fillColor: color,
-                weight: 2,
-                opacity: 1,
-                color: "white",
-                dashArray: "3",
-                fillOpacity: 0.6
-            };
+                return {
+                    fillColor: color,
+                    weight: 2,
+                    opacity: 1,
+                    color: "white",
+                    dashArray: "3",
+                    fillOpacity: 0.6
+                };
+            }
+            else {
+                return {
+                    opacity: 0,
+                    fillOpacity: 0
+                };
+            }
         }
-        else {
-            return {
-                opacity: 0,
-                fillOpacity: 0
-            };
-        }
-    }
 
-    onEachFeature(feature /*: object */, layer /*: object */) {
-        layer.on({
-            mouseover: this.onFeatureMouseOver,
-            mouseout: this.onFeatureMouseOut,
-            click: this.onFeatureClick
-        });
-    }
-
-    onFeatureMouseOver(e={} /*: object */) {
-        const {categoryData} = this.props;
-
-        if (categoryData.length > 0) {
-            const layer = e.target,
-                feature = layer.feature,
-                category = this._categoryFromFeature(feature),
-                datum = categoryData.find(d => d.category === category),
-                categoryTitle = this.categoryTitle(datum.category),
-                value = datum.value;
-
-            layer.setStyle({
-                weight: 5,
-                color: "#666666",
-                dashArray: "",
-                fillOpacity: 0.8
+        function onEachFeature(feature /*: object */, layer /*: object */) {
+            layer.on({
+                mouseover: onFeatureMouseOver,
+                mouseout: onFeatureMouseOut,
+                click: onFeatureClick
             });
-
-            layer.bringToFront();
-
-            //this._infoBox.update(categoryTitle, value);
         }
-    }
 
-    onFeatureMouseOut(e={} /*: object */) {
-        this.resetStyle(e.target);      //uses our style function to reset styles
-        //this._infoBox.reset();
-    }
+        function onFeatureMouseOver(e={} /*: object */) {
+            if (categoryData.length > 0) {
+                const layer = e.target,
+                    feature = layer.feature,
+                    category = categoryFromFeature(feature),
+                    datum = categoryData.find(d => d.category === category),
+                    categoryTitle = titleForCategory(datum.category),
+                    value = datum.value;
 
-    onFeatureClick(e={} /*: object */) {
-        e.target._map.fitBounds(e.target.getBounds());
-    }
+                layer.setStyle({
+                    weight: 5,
+                    color: "#666666",
+                    dashArray: "",
+                    fillOpacity: 0.8
+                });
 
-    _categoryFromFeature(feature /*: object */) /*: string */ {
-        return Number(feature.properties.tags["ISO3166-2"].split("-")[1]).toString();
+                layer.bringToFront();
+
+                //this._infoBox.update(categoryTitle, value);
+            }
+        }
+
+        function onFeatureMouseOut(e={} /*: object */) {
+            this.resetStyle(e.target);      //uses our style function to reset styles
+            //this._infoBox.reset();
+        }
+
+        function onFeatureClick(e={} /*: object */) {
+            e.target._map.fitBounds(e.target.getBounds());
+        }
+
+        super(props, context);
     }
 
     shouldComponentUpdate() {
