@@ -72,7 +72,9 @@ class HeatLayer extends CanvasTileLayer {
     draw() {
         const {hidden} = this.props;
 
-        this.leafletElement._reset();
+        if (this.leafletElement._tileContainer) {
+            this.leafletElement._reset();
+        }
 
         if (!hidden) {
             this.leafletElement._update();
