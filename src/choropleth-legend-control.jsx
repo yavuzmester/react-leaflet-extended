@@ -30,7 +30,10 @@ class ChoroplethLegendControl extends MapControl {
         };
 
         this.leafletElement = leafletElement;
+    }
 
+    componentDidMount() {
+        super.componentDidMount();
         this.update();
     }
 
