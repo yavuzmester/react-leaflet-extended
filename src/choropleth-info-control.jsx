@@ -28,14 +28,13 @@ class ChoroplethInfoControl extends MapControl {
     }
 
     update(where="" /*: string */, what="" /*: string */) {
-        const visibility = where && what;
-
         this.leafletElement._container.innerHTML = `
                 <b>${where || ""}</b>
                 <br/>
                 <b>${what || ""}</b>
                 <br/>
             `;
+
         L.DomUtil.removeClass(this.leafletElement._container, "visibility-hidden");
     }
 
