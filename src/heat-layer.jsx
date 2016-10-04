@@ -105,7 +105,8 @@ class HeatLayer extends CanvasTileLayer {
         }, blankImageData);
     }
 
-    update() {
+    componentDidUpdate(prevProps={} /*: object */) {
+        super.componentDidUpdate(prevProps);
         this.draw();
     }
 }
