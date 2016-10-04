@@ -24,8 +24,7 @@ const propTypes = {
         ),
         tileWidthInSquares: PropTypes.number
     }),
-    opacity: PropTypes.number,
-    visibility: PropTypes.bool
+    opacity: PropTypes.number
 };
 
 const defaultProps = {
@@ -33,8 +32,7 @@ const defaultProps = {
     data: {
         tiles: []
     },
-    opacity: 1,
-    visibility: false
+    opacity: 1
 };
 
 function initContext(ctx={} /*: object */) {
@@ -75,11 +73,7 @@ class HeatLayer extends CanvasTileLayer {
         }
 
         this.leafletElement._update();
-
-        const {visibility} = this.props;
-        if (visibility) {
-            this.tileCanvases().forEach(tc => this._drawTileCanvas(tc));
-        }
+        this.tileCanvases().forEach(tc => this._drawTileCanvas(tc));
     }
 
     _drawTileCanvas(tileCanvas={} /*: object */) {
