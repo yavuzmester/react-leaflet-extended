@@ -8,15 +8,19 @@ const defaultProps = {
     position: "bottomleft"
 };
 
+function reset(infoControl={} /* object */) {
+    infoControl._container.innerHTML = "<br/><br/>";
+    L.DomUtil.addClass(infoControl._container, "visibility-hidden");
+}
+
 class ChoroplethInfoControl extends MapControl {
     componentWillMount() {
         const leafletElement = L.control(this.props);
 
         leafletElement.onAdd = function() {
-            const container = L.DomUtil.create("div", "geo-choropleth-info visibility-hidden");
-            container.innerHTML = "<br/><br/>";
-
+            const container = L.DomUtil.create("div", "geo-choropleth-info");
             leafletElement._container = container;
+            reset(leafletElement, false);
             return container;
         };
 
@@ -32,18 +36,11 @@ class ChoroplethInfoControl extends MapControl {
                 <b>${what || ""}</b>
                 <br/>
             `;
-
-        if (visibility) {
-            L.DomUtil.removeClass(this.leafletElement._container, "visibility-hidden");
-        }
-        else {
-            L.DomUtil.addClass(this.leafletElement._container, "visibility-hidden");
-        }
+        L.DomUtil.removeClass(this.leafletElement._container, "visibility-hidden");
     }
 
     reset() {
-        this.leafletElement._container.innerHTML = "<br/><br/>";
-        L.DomUtil.addClass(this.leafletElement._container, "visibility-hidden");
+        reset(this.leafletElement);
     }
 }
 
