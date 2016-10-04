@@ -42,6 +42,10 @@ class ChoroplethInfoControl extends MapControl {
     reset() {
         reset(this.leafletElement);
     }
+
+    shouldComponentUpdate() {
+        return false;
+    }
 }
 
 ChoroplethInfoControl.defaultProps = defaultProps;
