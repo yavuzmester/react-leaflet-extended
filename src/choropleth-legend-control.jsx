@@ -34,16 +34,6 @@ class ChoroplethLegendControl extends MapControl {
         this.leafletElement = leafletElement;
     }
 
-    componentDidMount() {
-        super.componentDidMount();
-        this.update();
-    }
-
-    componentDidUpdate(prevProps={} /*: object */) {
-        super.componentDidUpdate(prevProps);
-        this.update();
-    }
-
     update() {
         const {visibility, extents} = this.props;
 
@@ -57,7 +47,6 @@ class ChoroplethLegendControl extends MapControl {
             L.DomUtil.removeClass(this.leafletElement._container, "visibility-hidden");
         }
         else {
-            this.leafletElement._container.innerHTML = "";
             L.DomUtil.addClass(this.leafletElement._container, "visibility-hidden");
         }
     }
