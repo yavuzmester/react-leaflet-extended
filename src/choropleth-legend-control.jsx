@@ -12,11 +12,13 @@ const propTypes = {
                 PropTypes.number.isRequired
             ).isRequired
         }).isRequired
-    ).isRequired
+    ),
+    visibility: PropTypes.bool
 };
 
 const defaultProps = {
-    position: "bottomleft"
+    position: "bottomleft",
+    visibility: false
 };
 
 class ChoroplethLegendControl extends MapControl {
@@ -38,15 +40,21 @@ class ChoroplethLegendControl extends MapControl {
     }
 
     update() {
-        const {extents} = this.props;
+        const {visibility, extents} = this.props;
 
-        this.leafletElement._container.innerHTML = extents.reduce((memo, e) => {
-            return memo + `
+        if (visibility) {
+            this.leafletElement._container.innerHTML = extents.reduce((memo, e) => {
+                return memo + `
                     <i style=${"background:" + e.color}></i> ${e.extent.join("-")} <br/>
                 `;
-        }, "");
+            }, "");
 
-        L.DomUtil.removeClass(this.leafletElement._container, "visibility-hidden");
+            L.DomUtil.removeClass(this.leafletElement._container, "visibility-hidden");
+        }
+        else {
+            this.leafletElement._container.innerHTML = "";
+            L.DomUtil.addClass(this.leafletElement._container, "visibility-hidden");
+        }
     }
 }
 
