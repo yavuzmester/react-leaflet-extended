@@ -68,7 +68,7 @@ class HeatLayer extends CanvasTileLayer {
     }
 
     draw() {
-        if (this.leafletElement._tileContainer) {
+        if (this.leafletElement._map) {
             this.leafletElement._reset();
         }
 
