@@ -86,8 +86,12 @@ class ChoroplethLayer extends GeoJson {
         });
     }
 
-    shouldComponentUpdate() {
-        return false;
+    componentWillReceiveProps(prevProps) {
+        this.leafletElement.clearLayers();
+    }
+
+    componentDidUpdate(prevProps) {
+        this.leafletElement.addData(this.props.data);
     }
 }
 
