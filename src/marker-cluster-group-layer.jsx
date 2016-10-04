@@ -59,10 +59,6 @@ class MarkerClusterGroupLayer extends RL_MapLayer {
         );
     }
 
-    render() {
-        return null;
-    }
-
     shouldComponentUpdate() {
         return false;
     }
