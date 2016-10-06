@@ -6,6 +6,7 @@ require("leaflet.markercluster");
 const RL_MapLayer = require("react-leaflet").MapLayer;
 
 const propTypes = {
+    name: PropTypes.string.isRequired,
     data: PropTypes.arrayOf(
         PropTypes.shape({
             lat: PropTypes.number.isRequired,

@@ -6,6 +6,7 @@ const hexToRgb = require("hex-rgb");
 const createProxyCanvas = (width, height) => $("<canvas>").attr("width", width).attr("height", height)[0];
 
 const propTypes = {
+    name: PropTypes.string.isRequired,
     noWrap: PropTypes.bool,
     data: PropTypes.shape({
         tiles: PropTypes.arrayOf(

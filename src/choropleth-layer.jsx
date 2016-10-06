@@ -5,6 +5,7 @@ const L = require("leaflet");
 const {GeoJson} = require("react-leaflet");
 
 const propTypes = {
+    name: PropTypes.string.isRequired,
     data: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.object

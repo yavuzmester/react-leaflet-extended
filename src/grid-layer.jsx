@@ -4,6 +4,7 @@ const {PropTypes} = require("react");
 const CanvasTileLayer = require("./canvas-tile-layer");
 
 const propTypes = {
+    name: PropTypes.string.isRequired,
     noWrap: PropTypes.bool,
     data: PropTypes.shape({
         tiles: PropTypes.arrayOf(
