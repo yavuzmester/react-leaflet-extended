@@ -11,7 +11,7 @@ const propTypes = {
                 x: PropTypes.number.isRequired,
                 y: PropTypes.number.isRequired,
                 text: PropTypes.string.isRequired
-            })
+            }).isRequired
         )
     }),
     opacity: PropTypes.number
@@ -26,7 +26,7 @@ const defaultProps = {
 };
 
 class GridLayer extends CanvasTileLayer {
-    tileText(tile={} /*: object */) /*: string */ {
+    tileText(tile /*: object */) /*: string */ {
         const {data} = this.props;
         return (data.tiles.find(t => t.x === tile.x && t.y === tile.y) || {text: ""}).text;
     }
@@ -40,7 +40,7 @@ class GridLayer extends CanvasTileLayer {
         this.tileCanvases().forEach(tc => this._drawTileCanvas(tc));
     }
 
-    _drawTileCanvas(tileCanvas={} /*: object */) {
+    _drawTileCanvas(tileCanvas /*: object */) {
         const ctx = tileCanvas.getContext("2d"),
             tile = tileCanvas._tilePoint,
             tileText = this.tileText(tile);
@@ -55,7 +55,7 @@ class GridLayer extends CanvasTileLayer {
         ctx.fillText(tileText, 10, 256 - 10);
     }
 
-    componentDidUpdate(prevProps={} /*: object */) {
+    componentDidUpdate(prevProps /*: object */) {
         super.componentDidUpdate(prevProps);
         this.draw();
     }

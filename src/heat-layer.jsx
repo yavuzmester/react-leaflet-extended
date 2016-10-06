@@ -18,9 +18,9 @@ const propTypes = {
                         y: PropTypes.number.isRequired,
                         color: PropTypes.string.isRequired,
                         opacity: PropTypes.number.isRequired
-                    })
+                    }).isRequired
                 ).isRequired
-            })
+            }).isRequired
         ),
         tileWidthInSquares: PropTypes.number
     }),
@@ -35,7 +35,7 @@ const defaultProps = {
     opacity: 1
 };
 
-function initContext(ctx={} /*: object */) {
+function initContext(ctx /*: object */) {
     //clear the canvas
     const blankImageData = ctx.createImageData(ctx.canvas.width, ctx.canvas.height);
     ctx.putImageData(blankImageData, 0, 0);
@@ -46,7 +46,7 @@ function initContext(ctx={} /*: object */) {
     ctx.mozImageSmoothingEnabled = false;
 }
 
-function drawImageDataToContext(ctx={} /*: object */, imageData={} /*: ImageData */) {
+function drawImageDataToContext(ctx /*: object */, imageData /*: ImageData */) {
     const scaleRatio = ctx.canvas.width / imageData.width;
 
     if (scaleRatio === 1) {
@@ -62,7 +62,7 @@ function drawImageDataToContext(ctx={} /*: object */, imageData={} /*: ImageData
 }
 
 class HeatLayer extends CanvasTileLayer {
-    squaresOfTile(tile={} /*: object */) /*: array<object> */ {
+    squaresOfTile(tile /*: object */) /*: array<object> */ {
         const {data} = this.props;
         return (data.tiles.find(t => t.x === tile.x && t.y === tile.y) || {squares: []}).squares;
     }
@@ -76,14 +76,14 @@ class HeatLayer extends CanvasTileLayer {
         this.tileCanvases().forEach(tc => this._drawTileCanvas(tc));
     }
 
-    _drawTileCanvas(tileCanvas={} /*: object */) {
+    _drawTileCanvas(tileCanvas /*: object */) {
         const ctx = tileCanvas.getContext("2d");
         initContext(ctx);
         const imageData = this._prepareTileImageData(tileCanvas);
         drawImageDataToContext(ctx, imageData);
     }
 
-    _prepareTileImageData(tileCanvas={} /*: object */) /*: ImageData */ {
+    _prepareTileImageData(tileCanvas /*: object */) /*: ImageData */ {
         const {tileWidthInSquares} = this.props.data;
 
         const ctx = tileCanvas.getContext("2d"),
@@ -105,7 +105,7 @@ class HeatLayer extends CanvasTileLayer {
         }, blankImageData);
     }
 
-    componentDidUpdate(prevProps={} /*: object */) {
+    componentDidUpdate(prevProps /*: object */) {
         super.componentDidUpdate(prevProps);
         this.draw();
     }

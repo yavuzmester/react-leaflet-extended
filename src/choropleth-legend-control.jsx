@@ -12,14 +12,14 @@ const propTypes = {
                 PropTypes.number.isRequired
             ).isRequired
         }).isRequired
-    )
+    ).isRequired
 };
 
 const defaultProps = {
     position: "bottomleft"
 };
 
-function update(legendControl={} /* object */, visibility=false /*: boolean */, extents=[] /*: array */) {
+function update(legendControl /* object */, visibility /*: ?boolean */, extents /*: array */) {
     if (visibility) {
         legendControl._container.innerHTML = extents.reduce((memo, e) => {
             return memo + `
@@ -50,7 +50,7 @@ class ChoroplethLegendControl extends MapControl {
         this.leafletElement = leafletElement;
     }
 
-    componentWillReceiveProps(nextProps={} /*: object */) {
+    componentWillReceiveProps(nextProps /*: object */) {
         const {extents} = nextProps;
         update(this.leafletElement, true, extents);
     }

@@ -15,7 +15,7 @@ const propTypes = {
             value: PropTypes.number.isRequired,
             color: PropTypes.string.isRequired
         }).isRequired
-    ),
+    ).isRequired,
     categoryTitles: PropTypes.arrayOf(
         PropTypes.shape({
             category: PropTypes.string.isRequired,
@@ -30,12 +30,11 @@ const propTypes = {
 
 const defaultProps = {
     data: [],
-    categoryData: [],
     categoryTitles: []
 };
 
 class ChoroplethLayer extends GeoJson {
-    constructor(props={} /*: object */, context={} /*: object */) {
+    constructor(props /*: object */, context /*: object */) {
         super(props, context);
 
         this.style = this.style.bind(this);
@@ -55,25 +54,17 @@ class ChoroplethLayer extends GeoJson {
     style(feature /*: object */) /*: object */ {
         const {categoryData, categoryFromFeature} = this.props;
 
-        if (categoryData.length > 0) {
-            const category = categoryFromFeature(feature),
-                color = categoryData.find(d => d.category === category).color;
+        const category = categoryFromFeature(feature),
+            color = categoryData.find(d => d.category === category).color;
 
-            return {
-                fillColor: color,
-                weight: 2,
-                opacity: 1,
-                color: "white",
-                dashArray: "3",
-                fillOpacity: 0.6
-            };
-        }
-        else {
-            return {
-                opacity: 0,
-                fillOpacity: 0
-            };
-        }
+        return {
+            fillColor: color,
+            weight: 2,
+            opacity: 1,
+            color: "white",
+            dashArray: "3",
+            fillOpacity: 0.6
+        };
     }
 
     onEachFeature(feature /*: object */, layer /*: object */) {

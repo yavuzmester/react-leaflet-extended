@@ -8,7 +8,7 @@ const defaultProps = {
     position: "bottomleft"
 };
 
-function reset(infoControl={} /* object */) {
+function reset(infoControl /* object */) {
     infoControl._container.innerHTML = "<br/><br/>";
     L.DomUtil.addClass(infoControl._container, "visibility-hidden");
 }
@@ -27,7 +27,7 @@ class ChoroplethInfoControl extends MapControl {
         this.leafletElement = leafletElement;
     }
 
-    update(where="" /*: string */, what="" /*: string */) {
+    update(where="" /*: ?string */, what="" /*: ?string */) {
         this.leafletElement._container.innerHTML = `
                 <b>${where || ""}</b>
                 <br/>

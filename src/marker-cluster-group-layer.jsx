@@ -10,7 +10,7 @@ const propTypes = {
         PropTypes.shape({
             lat: PropTypes.number.isRequired,
             lng: PropTypes.number.isRequired
-        })
+        }).isRequired
     ).isRequired
 };
 
@@ -26,7 +26,7 @@ const markerIcon = L.icon({
     popupAnchor: [0, -14]
 });
 
-function datumToMarker(datum={} /*: object */) /*: L.Marker */ {
+function datumToMarker(datum /*: object */) /*: L.Marker */ {
     const marker = L.marker([datum.lat, datum.lng], {icon: markerIcon}),
         popupHtml = datumToPopupHtml(datum);
 
@@ -34,7 +34,7 @@ function datumToMarker(datum={} /*: object */) /*: L.Marker */ {
     return marker;
 }
 
-function datumToPopupHtml(datum={} /*: object */) /*: string */ {
+function datumToPopupHtml(datum /*: object */) /*: string */ {
     return Object.keys(datum).reduce((memo, key) => {
         if (key !== "lat" && key !== "lng") {
             return memo + `<br/><b>${key}:</b>  ${datum[key]}`;
