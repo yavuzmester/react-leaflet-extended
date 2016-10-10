@@ -17,7 +17,7 @@ const defaultProps = {
 };
 
 class TileLayer extends RL_TileLayer {
-    shouldComponentUpdate(nextProps /*: object */) {
+    shouldComponentUpdate(nextProps /*: object */) /*: boolean */ {
         return !shallowEqual(this.props, nextProps);
     }
 }

@@ -61,7 +61,7 @@ class GridLayer extends CanvasTileLayer {
         this.draw();
     }
 
-    shouldComponentUpdate(nextProps /*: object */) {
+    shouldComponentUpdate(nextProps /*: object */) /*: boolean */ {
         return !shallowEqual(this.props, nextProps);
     }
 }

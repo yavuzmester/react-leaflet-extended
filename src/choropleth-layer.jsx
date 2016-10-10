@@ -79,7 +79,7 @@ class ChoroplethLayer extends GeoJson {
         });
     }
 
-    shouldComponentUpdate() {
+    shouldComponentUpdate() /*: boolean */ {
         return false;
     }
 }

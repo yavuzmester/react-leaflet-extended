@@ -42,7 +42,7 @@ class ChoroplethInfoControl extends MapControl {
         reset(this.leafletElement);
     }
 
-    shouldComponentUpdate() {
+    shouldComponentUpdate() /*: boolean */ {
         return false;
     }
 }

@@ -56,7 +56,7 @@ class ChoroplethLegendControl extends MapControl {
         update(this.leafletElement, true, extents);
     }
 
-    shouldComponentUpdate(nextProps /*: object */) {
+    shouldComponentUpdate(nextProps /*: object */) /*: boolean */ {
         return !shallowEqual(this.props, nextProps);
     }
 }
