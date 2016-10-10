@@ -36,10 +36,9 @@ class GridLayer extends CanvasTileLayer {
     draw() {
         if (this.leafletElement._map) {
             this.leafletElement._reset();
+            this.leafletElement._update();
+            this.tileCanvases().forEach(tc => this._drawTileCanvas(tc));
         }
-
-        this.leafletElement._update();
-        this.tileCanvases().forEach(tc => this._drawTileCanvas(tc));
     }
 
     _drawTileCanvas(tileCanvas /*: object */) {
@@ -55,10 +54,6 @@ class GridLayer extends CanvasTileLayer {
         ctx.font = "10pt sans-serif";
         ctx.fillStyle = "white";
         ctx.fillText(tileText, 10, 256 - 10);
-    }
-
-    componentDidMount() {
-        this.draw();
     }
 
     componentDidUpdate(prevProps /*: object */) {

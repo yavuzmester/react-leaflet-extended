@@ -72,10 +72,9 @@ class HeatLayer extends CanvasTileLayer {
     draw() {
         if (this.leafletElement._map) {
             this.leafletElement._reset();
+            this.leafletElement._update();
+            this.tileCanvases().forEach(tc => this._drawTileCanvas(tc));
         }
-
-        this.leafletElement._update();
-        this.tileCanvases().forEach(tc => this._drawTileCanvas(tc));
     }
 
     _drawTileCanvas(tileCanvas /*: object */) {
@@ -105,10 +104,6 @@ class HeatLayer extends CanvasTileLayer {
 
             return memo;
         }, blankImageData);
-    }
-
-    componentDidMount() {
-        this.draw();
     }
 
     componentDidUpdate(prevProps /*: object */) {
