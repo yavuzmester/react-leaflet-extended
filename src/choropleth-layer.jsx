@@ -3,6 +3,7 @@
 const {PropTypes} = require("react");
 const L = require("leaflet");
 const {GeoJson} = require("react-leaflet");
+const shallowEqual = require("shallowequal");
 
 const propTypes = {
     name: PropTypes.string.isRequired,

@@ -2,6 +2,7 @@
 
 const {PropTypes} = require("react");
 const RL_TileLayer = require("react-leaflet").TileLayer;
+const shallowEqual = require("shallowequal");
 
 const propTypes = {
     name: PropTypes.string.isRequired,
@@ -15,7 +16,11 @@ const defaultProps = {
     opacity: 1
 };
 
-class TileLayer extends RL_TileLayer {}
+class TileLayer extends RL_TileLayer {
+    shouldComponentUpdate(nextProps /*: object */) {
+        return !shallowEqual(this.props, nextProps);
+    }
+}
 
 TileLayer.propTypes = propTypes;
 TileLayer.defaultProps = defaultProps;

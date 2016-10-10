@@ -3,6 +3,7 @@
 const {PropTypes} = require("react");
 const CanvasTileLayer = require("./canvas-tile-layer");
 const hexToRgb = require("hex-rgb");
+const shallowEqual = require("shallowequal");
 const createProxyCanvas = (width, height) => $("<canvas>").attr("width", width).attr("height", height)[0];
 
 const propTypes = {
@@ -109,6 +110,10 @@ class HeatLayer extends CanvasTileLayer {
     componentDidUpdate(prevProps /*: object */) {
         super.componentDidUpdate(prevProps);
         this.draw();
+    }
+
+    shouldComponentUpdate(nextProps /*: object */) {
+        return !shallowEqual(this.props, nextProps);
     }
 }
 

@@ -2,6 +2,7 @@
 
 const {PropTypes} = require("react");
 const CanvasTileLayer = require("./canvas-tile-layer");
+const shallowEqual = require("shallowequal");
 
 const propTypes = {
     name: PropTypes.string.isRequired,
@@ -59,6 +60,10 @@ class GridLayer extends CanvasTileLayer {
     componentDidUpdate(prevProps /*: object */) {
         super.componentDidUpdate(prevProps);
         this.draw();
+    }
+
+    shouldComponentUpdate(nextProps /*: object */) {
+        return !shallowEqual(this.props, nextProps);
     }
 }
 

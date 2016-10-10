@@ -4,6 +4,7 @@ const {PropTypes} = require("react");
 const L = require("leaflet");
 require("leaflet.markercluster");
 const RL_MapLayer = require("react-leaflet").MapLayer;
+const shallowEqual = require("shallowequal");
 
 const propTypes = {
     name: PropTypes.string.isRequired,
@@ -60,8 +61,8 @@ class MarkerClusterGroupLayer extends RL_MapLayer {
         );
     }
 
-    shouldComponentUpdate() {
-        return false;
+    shouldComponentUpdate(nextProps /*: object */) {
+        return !shallowEqual(this.props, nextProps);
     }
 }
 

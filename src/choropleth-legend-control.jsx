@@ -3,6 +3,7 @@
 const {PropTypes} = require("react");
 const {MapControl} = require("react-leaflet");
 const L = require("leaflet");
+const shallowEqual = require("shallowequal");
 
 const propTypes = {
     extents: PropTypes.arrayOf(
@@ -55,8 +56,8 @@ class ChoroplethLegendControl extends MapControl {
         update(this.leafletElement, true, extents);
     }
 
-    shouldComponentUpdate() {
-        return false;
+    shouldComponentUpdate(nextProps /*: object */) {
+        return !shallowEqual(this.props, nextProps);
     }
 }
 
