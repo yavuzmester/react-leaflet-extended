@@ -3,6 +3,7 @@
 const {PropTypes} = require("react");
 const CanvasTileLayer = require("./canvas-tile-layer");
 const hexToRgb = require("hex-rgb");
+const _ = require("underscore");
 const shallowEqual = require("shallowequal");
 const createProxyCanvas = (width, height) => $("<canvas>").attr("width", width).attr("height", height)[0];
 

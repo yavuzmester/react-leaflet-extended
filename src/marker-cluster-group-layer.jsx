@@ -4,6 +4,7 @@ const {PropTypes} = require("react");
 const L = require("leaflet");
 require("leaflet.markercluster");
 const RL_MapLayer = require("react-leaflet").MapLayer;
+const _ = require("underscore");
 const shallowEqual = require("shallowequal");
 
 const propTypes = {

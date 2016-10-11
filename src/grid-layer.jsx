@@ -2,6 +2,7 @@
 
 const {PropTypes} = require("react");
 const CanvasTileLayer = require("./canvas-tile-layer");
+const _ = require("underscore");
 const shallowEqual = require("shallowequal");
 
 const propTypes = {

@@ -3,6 +3,7 @@
 const {PropTypes} = require("react");
 const {MapControl} = require("react-leaflet");
 const L = require("leaflet");
+const _ = require("underscore");
 const shallowEqual = require("shallowequal");
 
 const propTypes = {
