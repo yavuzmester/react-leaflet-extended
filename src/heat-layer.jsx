@@ -10,31 +10,27 @@ const createProxyCanvas = (width, height) => $("<canvas>").attr("width", width).
 const propTypes = {
     name: PropTypes.string.isRequired,
     noWrap: PropTypes.bool,
-    data: PropTypes.shape({
-        tiles: PropTypes.arrayOf(
-            PropTypes.shape({
-                x: PropTypes.number.isRequired,
-                y: PropTypes.number.isRequired,
-                squares: PropTypes.arrayOf(
-                    PropTypes.shape({
-                        x: PropTypes.number.isRequired,
-                        y: PropTypes.number.isRequired,
-                        color: PropTypes.string.isRequired,
-                        opacity: PropTypes.number.isRequired
-                    })
-                ).isRequired
-            })
-        ).isRequired,
-        tileWidthInSquares: PropTypes.number
-    }),
+    data: PropTypes.arrayOf(
+        PropTypes.shape({
+            tileX: PropTypes.number.isRequired,
+            tileY: PropTypes.number.isRequired,
+            squaresInTile: PropTypes.arrayOf(
+                PropTypes.shape({
+                    x: PropTypes.number.isRequired,
+                    y: PropTypes.number.isRequired,
+                    color: PropTypes.string.isRequired,
+                    opacity: PropTypes.number.isRequired
+                })
+            ).isRequired
+        })
+    ),
+    tileWidthInSquares: PropTypes.number.isRequired,
     opacity: PropTypes.number
 };
 
 const defaultProps = {
     noWrap: true,
-    data: {
-        tiles: []
-    },
+    data: [],
     opacity: 1
 };
 
@@ -65,9 +61,9 @@ function drawImageDataToContext(ctx /*: object */, imageData /*: ImageData */) {
 }
 
 class HeatLayer extends CanvasTileLayer {
-    squaresOfTile(tile /*: object */) /*: array<object> */ {
+    squaresInTile(tile /*: object */) /*: array<object> */ {
         const {data} = this.props;
-        return (data.tiles.find(t => t.x === tile.x && t.y === tile.y) || {squares: []}).squares;
+        return (data.find(t => t.tileX === tile.x && t.tileY === tile.y) || {squaresInTile: []}).squaresInTile;
     }
 
     draw() {
@@ -86,14 +82,14 @@ class HeatLayer extends CanvasTileLayer {
     }
 
     _prepareTileImageData(tileCanvas /*: object */) /*: ImageData */ {
-        const {tileWidthInSquares} = this.props.data;
+        const {tileWidthInSquares} = this.props;
 
         const ctx = tileCanvas.getContext("2d"),
             blankImageData = ctx.createImageData(tileWidthInSquares, tileWidthInSquares),
             tile = tileCanvas._tilePoint,
-            squaresOfTile = this.squaresOfTile(tile);
+            squaresInTile = this.squaresInTile(tile);
 
-        return squaresOfTile.reduce((memo, s) => {
+        return squaresInTile.reduce((memo, s) => {
             const idx = (memo.height - 1 - s.y) * memo.width + s.x,
                 [r, g, b] = hexToRgb(s.color),
                 a = Math.max(0, Math.min(255, s.opacity)) * 255;
