@@ -62,7 +62,10 @@ class MarkerClusterGroupLayer extends RL_MapLayer {
     }
 
     shouldComponentUpdate(nextProps /*: object */) /*: boolean */ {
-        return !shallowEqual(this.props, nextProps);
+        return !shallowEqual(
+            _.pick(this.props, Object.keys(propTypes)),
+            _.pick(nextProps, Object.keys(propTypes))
+        );
     }
 }
 

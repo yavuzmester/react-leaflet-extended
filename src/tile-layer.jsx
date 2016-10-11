@@ -18,7 +18,10 @@ const defaultProps = {
 
 class TileLayer extends RL_TileLayer {
     shouldComponentUpdate(nextProps /*: object */) /*: boolean */ {
-        return !_.isEqual(this.props, nextProps);
+        return !_.isEqual(
+            _.pick(this.props, Object.keys(propTypes)),
+            _.pick(nextProps, Object.keys(propTypes))
+        );
     }
 }
 
