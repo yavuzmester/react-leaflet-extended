@@ -1,6 +1,6 @@
 {
     "name": "@yavuzmester/react-leaflet-extended",
-    "version": "0.0.58",
+    "version": "0.0.59",
     "description": "react leaflet extended",
     "keywords": ["react", "leaflet", "custom", "extend"],
     "repository": {
