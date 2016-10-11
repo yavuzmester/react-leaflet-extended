@@ -33,8 +33,7 @@ function datumToMarker(datum /*: object */) /*: L.Marker */ {
     const marker = L.marker([datum.lat, datum.lng], {icon: markerIcon}),
         popupHtml = datumToPopupHtml(datum);
 
-    marker.bindPopup(popupHtml);
-    return marker;
+    return marker.bindPopup(popupHtml);
 }
 
 function datumToPopupHtml(datum /*: object */) /*: string */ {
