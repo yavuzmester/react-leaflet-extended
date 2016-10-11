@@ -8,30 +8,26 @@ const shallowEqual = require("shallowequal");
 const propTypes = {
     name: PropTypes.string.isRequired,
     noWrap: PropTypes.bool,
-    data: PropTypes.shape({
-        tiles: PropTypes.arrayOf(
-            PropTypes.shape({
-                x: PropTypes.number.isRequired,
-                y: PropTypes.number.isRequired,
-                text: PropTypes.string.isRequired
-            })
-        ).isRequired
-    }),
+    data: PropTypes.arrayOf(
+        PropTypes.shape({
+            tileX: PropTypes.number.isRequired,
+            tileY: PropTypes.number.isRequired,
+            tileText: PropTypes.string.isRequired
+        })
+    ),
     opacity: PropTypes.number
 };
 
 const defaultProps = {
     noWrap: true,
-    data: {
-        tiles: []
-    },
+    data: [],
     opacity: 1
 };
 
 class GridLayer extends CanvasTileLayer {
     tileText(tile /*: object */) /*: string */ {
         const {data} = this.props;
-        return (data.tiles.find(t => t.x === tile.x && t.y === tile.y) || {text: ""}).text;
+        return (data.find(t => t.tileX === tile.x && t.tileY === tile.y) || {tileText: ""}).tileText;
     }
 
     draw() {
