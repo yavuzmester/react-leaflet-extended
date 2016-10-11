@@ -9,6 +9,7 @@ const MarkerClusterGroupLayer = require("./src/marker-cluster-group-layer");
 const ChoroplethLayer = require("./src/choropleth-layer");
 const ChoroplethInfoControl = require("./src/choropleth-info-control");
 const ChoroplethLegendControl = require("./src/choropleth-legend-control");
+const EditControl = require("./src/edit-control");
 
 module.exports = {
     Map: Map,
@@ -19,5 +20,6 @@ module.exports = {
     MarkerClusterGroupLayer: MarkerClusterGroupLayer,
     ChoroplethLayer: ChoroplethLayer,
     ChoroplethInfoControl: ChoroplethInfoControl,
-    ChoroplethLegendControl: ChoroplethLegendControl
+    ChoroplethLegendControl: ChoroplethLegendControl,
+    EditControl: EditControl
 };
