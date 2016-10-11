@@ -20,10 +20,10 @@ const propTypes = {
                         y: PropTypes.number.isRequired,
                         color: PropTypes.string.isRequired,
                         opacity: PropTypes.number.isRequired
-                    }).isRequired
+                    })
                 ).isRequired
-            }).isRequired
-        ),
+            })
+        ).isRequired,
         tileWidthInSquares: PropTypes.number
     }),
     opacity: PropTypes.number

@@ -13,8 +13,8 @@ const propTypes = {
                 x: PropTypes.number.isRequired,
                 y: PropTypes.number.isRequired,
                 text: PropTypes.string.isRequired
-            }).isRequired
-        )
+            })
+        ).isRequired
     }),
     opacity: PropTypes.number
 };
