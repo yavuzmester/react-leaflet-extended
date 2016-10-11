@@ -7,21 +7,15 @@ const shallowEqual = require("shallowequal");
 
 const propTypes = {
     name: PropTypes.string.isRequired,
-    data: PropTypes.oneOfType([
+    geojson: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.object
     ]),
-    categoryData: PropTypes.arrayOf(
+    data: PropTypes.arrayOf(
         PropTypes.shape({
             category: PropTypes.string.isRequired,
             value: PropTypes.number.isRequired,
             color: PropTypes.string.isRequired
-        }).isRequired
-    ).isRequired,
-    categoryTitles: PropTypes.arrayOf(
-        PropTypes.shape({
-            category: PropTypes.string.isRequired,
-            categoryTitle: PropTypes.string.isRequired
         })
     ),
     categoryFromFeature: PropTypes.func,
@@ -31,8 +25,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    data: [],
-    categoryTitles: []
+    data: []
 };
 
 class ChoroplethLayer extends GeoJson {
@@ -44,20 +37,20 @@ class ChoroplethLayer extends GeoJson {
     }
 
     componentWillMount () {
-        const {data} = this.props,
+        const {geojson} = this.props,
             options = {
                 style: this.style,
                 onEachFeature: this.onEachFeature
             };
 
-        this.leafletElement = L.geoJson(data, options);
+        this.leafletElement = L.geoJson(geojson, options);
     }
 
     style(feature /*: object */) /*: object */ {
-        const {categoryData, categoryFromFeature} = this.props;
+        const {data, categoryFromFeature} = this.props;
 
         const category = categoryFromFeature(feature),
-            color = categoryData.find(d => d.category === category).color;
+            color = data.find(d => d.category === category).color;
 
         return {
             fillColor: color,

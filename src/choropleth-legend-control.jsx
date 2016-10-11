@@ -13,12 +13,13 @@ const propTypes = {
             extent: PropTypes.arrayOf(
                 PropTypes.number.isRequired
             ).isRequired
-        }).isRequired
-    ).isRequired
+        })
+    )
 };
 
 const defaultProps = {
-    position: "bottomleft"
+    position: "bottomleft",
+    extents: []
 };
 
 function update(legendControl /* object */, visibility /*: ?boolean */, extents /*: array */) {
