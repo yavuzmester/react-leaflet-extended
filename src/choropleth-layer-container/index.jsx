@@ -75,7 +75,7 @@ class ChoroplethLayerContainer extends Component {
 
                 <ChoroplethInfoControl ref="geo-choropleth-info-control"/>
 
-                {visibility ? <ChoroplethLegendControl extents={extents}/> : ""}
+                <ChoroplethLegendControl ref="geo-choropleth-legend-control" extents={extents} visibility={visibility}/>
             </ChoroplethLayer>
         );
     }
@@ -86,6 +86,10 @@ class ChoroplethLayerContainer extends Component {
 
     geoChoroplethInfoControl() {
         return this.refs["geo-choropleth-info-control"];
+    }
+
+    geoChoroplethLegendControl() {
+        return this.refs["geo-choropleth-legend-control"];
     }
 
     titleForCategory(category /*: string */) /*: string */ {

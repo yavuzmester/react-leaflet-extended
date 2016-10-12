@@ -14,20 +14,29 @@ const propTypes = {
                 PropTypes.number.isRequired
             ).isRequired
         })
-    )
+    ),
+    visibility: PropTypes.bool
 };
 
 const defaultProps = {
     position: "bottomleft",
-    extents: []
+    extents: [],
+    visibility: false
 };
 
-function update(legendControl /* object */, extents /*: array */) {
+function update(legendControl /* object */, extents /*: array */, visibility /*: boolean */) {
     legendControl._container.innerHTML = extents.reduce((memo, e) => {
         return memo + `
                 <i style=${"background:" + e.color}></i> ${e.extent.join("-")} <br/>
             `;
     }, "");
+
+    if (visibility) {
+        L.DomUtil.removeClass(legendControl._container, "visibility-hidden");
+    }
+    else {
+        L.DomUtil.addClass(legendControl._container, "visibility-hidden");
+    }
 }
 
 class ChoroplethLegendControl extends MapControl {
@@ -39,7 +48,7 @@ class ChoroplethLegendControl extends MapControl {
         leafletElement.onAdd = function() {
             const container = L.DomUtil.create("div", "geo-choropleth-legend");
             leafletElement._container = container;
-            update(leafletElement, extents);
+            update(leafletElement, extents, false);
             return container;
         };
 
@@ -49,8 +58,8 @@ class ChoroplethLegendControl extends MapControl {
     componentDidUpdate(prevProps /*: object */) {
         super.componentDidUpdate(prevProps);
 
-        const {extents} = this.props;
-        update(this.leafletElement, extents);
+        const {extents, visibility} = this.props;
+        update(this.leafletElement, extents, visibility);
     }
 
     shouldComponentUpdate(nextProps /*: object */) /*: boolean */ {
