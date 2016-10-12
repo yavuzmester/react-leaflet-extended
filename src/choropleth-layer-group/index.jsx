@@ -2,7 +2,7 @@
 
 const React = require("react"),
     {PropTypes} = React;
-const MapLayer = require("react-leaflet").MapLayer;
+const RL_LayerGroup = require("react-leaflet").LayerGroup;
 const ChoroplethLayer = require("./choropleth-layer");
 const ChoroplethInfoControl = require("./choropleth-info-control");
 const ChoroplethLegendControl = require("./choropleth-legend-control");
@@ -45,7 +45,7 @@ const defaultProps = {
     visibility: false
 };
 
-class ChoroplethLayerGroup extends MapLayer {
+class ChoroplethLayerGroup extends RL_LayerGroup {
     constructor(props /*: object */, context /*: object */) {
         super(props, context);
 
@@ -60,7 +60,7 @@ class ChoroplethLayerGroup extends MapLayer {
         const {name, geojson, data, extents, visibility} = this.props;
 
         return (
-            <LayerGroup>
+            <div style={{display: 'none'}}>
                 <ChoroplethLayer ref="geo-choropleth-layer"
                     name={name}
                     geojson={geojson}
@@ -73,7 +73,7 @@ class ChoroplethLayerGroup extends MapLayer {
                 <ChoroplethInfoControl ref="geo-choropleth-info-control"/>
 
                 <ChoroplethLegendControl extents={extents} visibility={visibility}/>
-            </LayerGroup>
+            </div>
         );
     }
 
