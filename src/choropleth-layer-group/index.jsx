@@ -1,8 +1,8 @@
 "use strict";
 
 const React = require("react"),
-    {Component, PropTypes} = React;
-const LayerGroup = require("react-leaflet").LayerGroup;
+    {PropTypes} = React;
+const MapLayer = require("react-leaflet").MapLayer;
 const ChoroplethLayer = require("./choropleth-layer");
 const ChoroplethInfoControl = require("./choropleth-info-control");
 const ChoroplethLegendControl = require("./choropleth-legend-control");
@@ -45,7 +45,7 @@ const defaultProps = {
     visibility: false
 };
 
-class ChoroplethLayerGroup extends Component {
+class ChoroplethLayerGroup extends MapLayer {
     constructor(props /*: object */, context /*: object */) {
         super(props, context);
 
