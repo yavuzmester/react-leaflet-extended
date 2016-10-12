@@ -35,13 +35,15 @@ const propTypes = {
                 PropTypes.number.isRequired
             ).isRequired
         })
-    )
+    ),
+    visibility: PropTypes.bool
 };
 
 const defaultProps = {
     data: [],
     categoryTitles: [],
-    extents: []
+    extents: [],
+    visibility: false
 };
 
 class ChoroplethLayerContainer extends Component {
@@ -60,7 +62,7 @@ class ChoroplethLayerContainer extends Component {
     }
 
     render() {
-        const {geojson, data, extents} = this.props;
+        const {geojson, data, extents, visibility} = this.props;
 
         return (
             <ChoroplethLayer ref="geo-choropleth-layer"
@@ -72,7 +74,8 @@ class ChoroplethLayerContainer extends Component {
                 onFeatureClick={this.onFeatureClick}>
 
                 <ChoroplethInfoControl ref="geo-choropleth-info-control"/>
-                <ChoroplethLegendControl extents={extents}/>
+
+                {visibility ? <ChoroplethLegendControl extents={extents}/> : ""}
             </ChoroplethLayer>
         );
     }
