@@ -49,7 +49,7 @@ function datumToPopupHtml(datum /*: object */) /*: string */ {
 
 class MarkerClusterGroupLayer extends RL_MapLayer {
     name() {
-        return this.props.name();
+        return this.props.name;
     }
 
     componentWillMount() {
