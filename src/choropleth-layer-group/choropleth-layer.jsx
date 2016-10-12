@@ -10,7 +10,7 @@ const propTypes = {
     geojson: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.object
-    ]),
+    ]).isRequired,
     data: PropTypes.arrayOf(
         PropTypes.shape({
             category: PropTypes.string.isRequired,

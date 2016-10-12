@@ -1,12 +1,13 @@
 "use strict";
 
 const React = require("react"),
-    {PropTypes} = React;
-const RL_LayerGroup = require("react-leaflet").LayerGroup;
+    {Component, PropTypes} = React;
+const {LayerGroup} = require("react-leaflet");
 const ChoroplethLayer = require("./choropleth-layer");
 const ChoroplethInfoControl = require("./choropleth-info-control");
 const ChoroplethLegendControl = require("./choropleth-legend-control");
 const _ = require("underscore");
+const shallowEqual = require("shallowequal");
 
 const propTypes = {
     name: PropTypes.string.isRequired,
@@ -34,18 +35,16 @@ const propTypes = {
                 PropTypes.number.isRequired
             ).isRequired
         })
-    ),
-    visibility: PropTypes.bool
+    )
 };
 
 const defaultProps = {
     data: [],
     categoryTitles: [],
-    extents: [],
-    visibility: false
+    extents: []
 };
 
-class ChoroplethLayerGroup extends RL_LayerGroup {
+class ChoroplethLayerGroup extends Component {
     constructor(props /*: object */, context /*: object */) {
         super(props, context);
 
@@ -57,10 +56,10 @@ class ChoroplethLayerGroup extends RL_LayerGroup {
     }
 
     render() {
-        const {name, geojson, data, extents, visibility} = this.props;
+        const {name, geojson, data, extents} = this.props;
 
         return (
-            <div style={{display: 'none'}}>
+            <LayerGroup>
                 <ChoroplethLayer ref="geo-choropleth-layer"
                     name={name}
                     geojson={geojson}
@@ -72,8 +71,8 @@ class ChoroplethLayerGroup extends RL_LayerGroup {
 
                 <ChoroplethInfoControl ref="geo-choropleth-info-control"/>
 
-                <ChoroplethLegendControl extents={extents} visibility={visibility}/>
-            </div>
+                <ChoroplethLegendControl extents={extents}/>
+            </LayerGroup>
         );
     }
 
@@ -125,6 +124,13 @@ class ChoroplethLayerGroup extends RL_LayerGroup {
 
     onFeatureClick(e /*: object */) {
         e.target._map.fitBounds(e.target.getBounds());
+    }
+
+    shouldComponentUpdate(nextProps /*: object */) /*: boolean */ {
+        return !shallowEqual(
+            _.pick(this.props, Object.keys(propTypes)),
+            _.pick(nextProps, Object.keys(propTypes))
+        );
     }
 }
 

@@ -22,19 +22,12 @@ const defaultProps = {
     extents: []
 };
 
-function update(legendControl /* object */, visibility /*: ?boolean */, extents /*: array */) {
-    if (visibility) {
-        legendControl._container.innerHTML = extents.reduce((memo, e) => {
-            return memo + `
-                    <i style=${"background:" + e.color}></i> ${e.extent.join("-")} <br/>
-                `;
-        }, "");
-
-        //L.DomUtil.removeClass(legendControl._container, "visibility-hidden");
-    }
-    else {
-        //L.DomUtil.addClass(legendControl._container, "visibility-hidden");
-    }
+function update(legendControl /* object */, extents /*: array */) {
+    legendControl._container.innerHTML = extents.reduce((memo, e) => {
+        return memo + `
+                <i style=${"background:" + e.color}></i> ${e.extent.join("-")} <br/>
+            `;
+    }, "");
 }
 
 class ChoroplethLegendControl extends MapControl {
@@ -46,16 +39,16 @@ class ChoroplethLegendControl extends MapControl {
         leafletElement.onAdd = function() {
             const container = L.DomUtil.create("div", "geo-choropleth-legend");
             leafletElement._container = container;
-            update(leafletElement, false, extents);
+            update(leafletElement, extents);
             return container;
         };
 
         this.leafletElement = leafletElement;
     }
 
-    componentWillReceiveProps(nextProps /*: object */) {
-        const {extents} = nextProps;
-        update(this.leafletElement, true, extents);
+    componentDidUpdate() {
+        const {extents} = this.props;
+        update(this.leafletElement, extents);
     }
 
     shouldComponentUpdate(nextProps /*: object */) /*: boolean */ {
