@@ -105,9 +105,8 @@ class ChoroplethLayerContainer extends Component {
             const layer = e.target,
                 feature = layer.feature,
                 category = this.categoryFromFeature(feature),
-                datum = data.find(d => d.category === category),
-                categoryTitle = this.titleForCategory(datum.category),
-                value = datum.value;
+                categoryTitle = this.titleForCategory(category),
+                value = data.find(d => d.category === category).value;
 
             layer.setStyle({
                 weight: 5,
