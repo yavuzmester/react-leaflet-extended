@@ -2,7 +2,7 @@
 
 const React = require("react"),
     {Component, PropTypes} = React;
-//const {LayerGroup} = require("react-leaflet");
+const {LayerGroup} = require("react-leaflet");
 const ChoroplethLayer = require("./choropleth-layer");
 const ChoroplethInfoControl = require("./choropleth-info-control");
 const ChoroplethLegendControl = require("./choropleth-legend-control");
@@ -65,18 +65,19 @@ class ChoroplethLayerContainer extends Component {
         const {geojson, data, extents, visibility} = this.props;
 
         return (
-            <ChoroplethLayer ref="geo-choropleth-layer"
-                geojson={geojson}
-                data={data}
-                categoryFromFeature={this.categoryFromFeature}
-                onFeatureMouseOver={this.onFeatureMouseOver}
-                onFeatureMouseOut={this.onFeatureMouseOut}
-                onFeatureClick={this.onFeatureClick}>
+            <LayerGroup>
+                <ChoroplethLayer ref="geo-choropleth-layer"
+                    geojson={geojson}
+                    data={data}
+                    categoryFromFeature={this.categoryFromFeature}
+                    onFeatureMouseOver={this.onFeatureMouseOver}
+                    onFeatureMouseOut={this.onFeatureMouseOut}
+                    onFeatureClick={this.onFeatureClick}/>
 
                 <ChoroplethInfoControl ref="geo-choropleth-info-control"/>
 
-                <ChoroplethLegendControl ref="geo-choropleth-legend-control" extents={extents} visibility={visibility}/>
-            </ChoroplethLayer>
+                <ChoroplethLegendControl extents={extents} visibility={visibility}/>
+            </LayerGroup>
         );
     }
 
@@ -86,10 +87,6 @@ class ChoroplethLayerContainer extends Component {
 
     geoChoroplethInfoControl() {
         return this.refs["geo-choropleth-info-control"];
-    }
-
-    geoChoroplethLegendControl() {
-        return this.refs["geo-choropleth-legend-control"];
     }
 
     titleForCategory(category /*: string */) /*: string */ {
@@ -132,6 +129,13 @@ class ChoroplethLayerContainer extends Component {
 
     onFeatureClick(e /*: object */) {
         e.target._map.fitBounds(e.target.getBounds());
+    }
+
+    shouldComponentUpdate(nextProps /*: object */) /*: boolean */ {
+        return !shallowEqual(
+            _.pick(this.props, Object.keys(propTypes)),
+            _.pick(nextProps, Object.keys(propTypes))
+        );
     }
 }
 
