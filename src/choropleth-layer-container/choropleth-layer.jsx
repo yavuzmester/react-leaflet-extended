@@ -72,6 +72,10 @@ class ChoroplethLayer extends GeoJson {
         });
     }
 
+    componentDidUpdate() {
+        this.setStyle(this.style);
+    }
+
     shouldComponentUpdate(nextProps /*: object */) /*: boolean */ {
         return !shallowEqual(
             _.pick(this.props, Object.keys(propTypes)),
