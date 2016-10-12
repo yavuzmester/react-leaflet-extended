@@ -50,7 +50,7 @@ class ChoroplethLayer extends GeoJson {
         const {data, categoryFromFeature} = this.props;
 
         const category = categoryFromFeature(feature),
-            color = data.find(d => d.category === category).color;
+            color = (data.find(d => d.category === category) || {color: undefined}).color;
 
         return {
             fillColor: color,
