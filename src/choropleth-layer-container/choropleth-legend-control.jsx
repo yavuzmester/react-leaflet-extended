@@ -41,14 +41,14 @@ function update(legendControl /* object */, extents /*: array */, visibility /*:
 
 class ChoroplethLegendControl extends MapControl {
     componentWillMount() {
-        const {position, extents} = this.props;
+        const {position, extents, visibility} = this.props;
 
         const leafletElement = L.control({position: position});
 
         leafletElement.onAdd = function() {
             const container = L.DomUtil.create("div", "geo-choropleth-legend");
             leafletElement._container = container;
-            update(leafletElement, extents, false);
+            update(leafletElement, extents, visibility);
             return container;
         };
 
