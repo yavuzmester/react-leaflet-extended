@@ -117,7 +117,7 @@ class ChoroplethLayerContainer extends Component {
 
             layer.bringToFront();
 
-            this.geoChoroplethInfoControl().update(categoryTitle, value);
+            this.geoChoroplethInfoControl().update(categoryTitle, "" + value);
         }
     }
 
