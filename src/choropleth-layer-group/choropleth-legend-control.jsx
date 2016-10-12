@@ -30,10 +30,10 @@ function update(legendControl /* object */, visibility /*: ?boolean */, extents 
                 `;
         }, "");
 
-        L.DomUtil.removeClass(legendControl._container, "visibility-hidden");
+        //L.DomUtil.removeClass(legendControl._container, "visibility-hidden");
     }
     else {
-        L.DomUtil.addClass(legendControl._container, "visibility-hidden");
+        //L.DomUtil.addClass(legendControl._container, "visibility-hidden");
     }
 }
 
