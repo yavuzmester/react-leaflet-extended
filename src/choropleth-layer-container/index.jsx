@@ -129,13 +129,6 @@ class ChoroplethLayerContainer extends Component {
     onFeatureClick(e /*: object */) {
         e.target._map.fitBounds(e.target.getBounds());
     }
-
-    shouldComponentUpdate(nextProps /*: object */) /*: boolean */ {
-        return !shallowEqual(
-            _.pick(this.props, Object.keys(propTypes)),
-            _.pick(nextProps, Object.keys(propTypes))
-        );
-    }
 }
 
 ChoroplethLayerContainer.propTypes = propTypes;
