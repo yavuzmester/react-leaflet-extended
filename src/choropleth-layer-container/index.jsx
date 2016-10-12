@@ -46,7 +46,7 @@ const defaultProps = {
 
 class ChoroplethLayerContainer extends Component {
     name() {
-        return this.props.name();
+        return this.props.name;
     }
 
     constructor(props /*: object */, context /*: object */) {
