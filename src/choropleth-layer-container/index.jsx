@@ -10,6 +10,7 @@ const _ = require("underscore");
 const shallowEqual = require("shallowequal");
 
 const propTypes = {
+    name: PropTypes.string.isRequired,
     geojson: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.object
@@ -44,6 +45,10 @@ const defaultProps = {
 };
 
 class ChoroplethLayerContainer extends Component {
+    name() {
+        return this.props.name();
+    }
+
     constructor(props /*: object */, context /*: object */) {
         super(props, context);
 

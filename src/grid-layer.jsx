@@ -6,6 +6,7 @@ const _ = require("underscore");
 const shallowEqual = require("shallowequal");
 
 const propTypes = {
+    name: PropTypes.string.isRequired,
     noWrap: PropTypes.bool,
     data: PropTypes.arrayOf(
         PropTypes.shape({
@@ -24,6 +25,10 @@ const defaultProps = {
 };
 
 class GridLayer extends CanvasTileLayer {
+    name() {
+        return this.props.name;
+    }
+
     tileText(tile /*: object */) /*: string */ {
         const {data} = this.props;
         return (data.find(t => t.tileX === tile.x && t.tileY === tile.y) || {tileText: ""}).tileText;

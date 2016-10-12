@@ -5,6 +5,7 @@ const RL_TileLayer = require("react-leaflet").TileLayer;
 const _ = require("underscore");
 
 const propTypes = {
+    name: PropTypes.string.isRequired,
     noWrap: PropTypes.bool,
     url: PropTypes.string.isRequired,
     opacity: PropTypes.number
@@ -16,6 +17,10 @@ const defaultProps = {
 };
 
 class TileLayer extends RL_TileLayer {
+    name() {
+        return this.props.name;
+    }
+
     shouldComponentUpdate(nextProps /*: object */) /*: boolean */ {
         return !_.isEqual(
             _.pick(this.props, Object.keys(propTypes)),

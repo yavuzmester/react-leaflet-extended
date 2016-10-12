@@ -8,6 +8,7 @@ const shallowEqual = require("shallowequal");
 const createProxyCanvas = (width, height) => $("<canvas>").attr("width", width).attr("height", height)[0];
 
 const propTypes = {
+    name: PropTypes.string.isRequired,
     noWrap: PropTypes.bool,
     data: PropTypes.arrayOf(
         PropTypes.shape({
@@ -60,6 +61,10 @@ function drawImageDataToContext(ctx /*: object */, imageData /*: ImageData */) {
 }
 
 class HeatLayer extends CanvasTileLayer {
+    name() {
+        return this.props.name;
+    }
+
     squaresInTile(tile /*: object */) /*: array<object> */ {
         const {data} = this.props;
         return (data.find(t => t.tileX === tile.x && t.tileY === tile.y) || {squaresInTile: []}).squaresInTile;

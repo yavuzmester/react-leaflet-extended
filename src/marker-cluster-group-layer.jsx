@@ -8,6 +8,7 @@ const _ = require("underscore");
 const shallowEqual = require("shallowequal");
 
 const propTypes = {
+    name: PropTypes.string.isRequired,
     data: PropTypes.arrayOf(
         PropTypes.shape({
             lat: PropTypes.number.isRequired,
@@ -47,6 +48,10 @@ function datumToPopupHtml(datum /*: object */) /*: string */ {
 }
 
 class MarkerClusterGroupLayer extends RL_MapLayer {
+    name() {
+        return this.props.name();
+    }
+
     componentWillMount() {
         super.componentWillMount();
         this.leafletElement = L.markerClusterGroup();
