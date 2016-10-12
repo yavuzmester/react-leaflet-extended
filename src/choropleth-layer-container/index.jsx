@@ -2,7 +2,7 @@
 
 const React = require("react"),
     {Component, PropTypes} = React;
-const {LayerGroup} = require("react-leaflet");
+//const {LayerGroup} = require("react-leaflet");
 const ChoroplethLayer = require("./choropleth-layer");
 const ChoroplethInfoControl = require("./choropleth-info-control");
 const ChoroplethLegendControl = require("./choropleth-legend-control");
@@ -10,7 +10,6 @@ const _ = require("underscore");
 const shallowEqual = require("shallowequal");
 
 const propTypes = {
-    name: PropTypes.string.isRequired,
     geojson: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.object
@@ -44,7 +43,7 @@ const defaultProps = {
     extents: []
 };
 
-class ChoroplethLayerGroup extends Component {
+class ChoroplethLayerContainer extends Component {
     constructor(props /*: object */, context /*: object */) {
         super(props, context);
 
@@ -56,23 +55,20 @@ class ChoroplethLayerGroup extends Component {
     }
 
     render() {
-        const {name, geojson, data, extents} = this.props;
+        const {geojson, data, extents} = this.props;
 
         return (
-            <LayerGroup>
-                <ChoroplethLayer ref="geo-choropleth-layer"
-                    name={name}
-                    geojson={geojson}
-                    data={data}
-                    categoryFromFeature={this.categoryFromFeature}
-                    onFeatureMouseOver={this.onFeatureMouseOver}
-                    onFeatureMouseOut={this.onFeatureMouseOut}
-                    onFeatureClick={this.onFeatureClick}/>
+            <ChoroplethLayer ref="geo-choropleth-layer"
+                geojson={geojson}
+                data={data}
+                categoryFromFeature={this.categoryFromFeature}
+                onFeatureMouseOver={this.onFeatureMouseOver}
+                onFeatureMouseOut={this.onFeatureMouseOut}
+                onFeatureClick={this.onFeatureClick}>
 
                 <ChoroplethInfoControl ref="geo-choropleth-info-control"/>
-
                 <ChoroplethLegendControl extents={extents}/>
-            </LayerGroup>
+            </ChoroplethLayer>
         );
     }
 
@@ -134,7 +130,7 @@ class ChoroplethLayerGroup extends Component {
     }
 }
 
-ChoroplethLayerGroup.propTypes = propTypes;
-ChoroplethLayerGroup.defaultProps = defaultProps;
+ChoroplethLayerContainer.propTypes = propTypes;
+ChoroplethLayerContainer.defaultProps = defaultProps;
 
-module.exports = ChoroplethLayerGroup;
+module.exports = ChoroplethLayerContainer;

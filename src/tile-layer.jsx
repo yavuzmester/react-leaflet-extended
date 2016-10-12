@@ -5,7 +5,6 @@ const RL_TileLayer = require("react-leaflet").TileLayer;
 const _ = require("underscore");
 
 const propTypes = {
-    name: PropTypes.string.isRequired,
     noWrap: PropTypes.bool,
     url: PropTypes.string.isRequired,
     opacity: PropTypes.number

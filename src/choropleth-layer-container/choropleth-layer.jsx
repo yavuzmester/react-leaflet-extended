@@ -3,10 +3,10 @@
 const {PropTypes} = require("react");
 const L = require("leaflet");
 const {GeoJson} = require("react-leaflet");
+const _ = require("underscore");
 const shallowEqual = require("shallowequal");
 
 const propTypes = {
-    name: PropTypes.string.isRequired,
     geojson: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.object
@@ -72,8 +72,11 @@ class ChoroplethLayer extends GeoJson {
         });
     }
 
-    shouldComponentUpdate() /*: boolean */ {
-        return false;
+    shouldComponentUpdate(nextProps /*: object */) /*: boolean */ {
+        return !shallowEqual(
+            _.pick(this.props, Object.keys(propTypes)),
+            _.pick(nextProps, Object.keys(propTypes))
+        );
     }
 }
 

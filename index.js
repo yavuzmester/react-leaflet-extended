@@ -6,7 +6,7 @@ const CanvasTileLayer = require("./src/canvas-tile-layer");
 const GridLayer = require("./src/grid-layer");
 const HeatLayer = require("./src/heat-layer");
 const MarkerClusterGroupLayer = require("./src/marker-cluster-group-layer");
-const ChoroplethLayerGroup = require("./src/choropleth-layer-group");
+const ChoroplethLayerContainer = require("./src/choropleth-layer-container");
 const EditControl = require("./src/edit-control");
 
 module.exports = {
@@ -16,6 +16,6 @@ module.exports = {
     GridLayer: GridLayer,
     HeatLayer: HeatLayer,
     MarkerClusterGroupLayer: MarkerClusterGroupLayer,
-    ChoroplethLayerGroup: ChoroplethLayerGroup,
+    ChoroplethLayerContainer: ChoroplethLayerContainer,
     EditControl: EditControl
 };
