@@ -5,11 +5,7 @@ const L = require("leaflet");
 
 class Map extends RL_Map {
     componentDidUpdate(prevProps /*: object */) {
-        const {bounds} = this.props;
-
-        if (!L.latLngBounds(bounds).equals(prevProps.bounds)) {
-            this.leafletElement.fitBounds(bounds);
-        }
+        //Do nothing here, as it seems we are better without it.
     }
 }
 
