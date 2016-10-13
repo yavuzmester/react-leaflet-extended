@@ -25,13 +25,15 @@ const propTypes = {
         })
     ),
     tileWidthInSquares: PropTypes.number.isRequired,
-    opacity: PropTypes.number
+    opacity: PropTypes.number,
+    visibility: PropTypes.bool
 };
 
 const defaultProps = {
     noWrap: true,
     data: [],
-    opacity: 1
+    opacity: 1,
+    visibility: false
 };
 
 function initContext(ctx /*: object */) {
@@ -71,10 +73,15 @@ class HeatLayer extends CanvasTileLayer {
     }
 
     draw() {
+        const {visibility} = this.props;
+
         if (this.leafletElement._map) {
             this.leafletElement._reset();
             this.leafletElement._update();
-            this.tileCanvases().forEach(tc => this._drawTileCanvas(tc));
+
+            if (visibility) {
+                this.tileCanvases().forEach(tc => this._drawTileCanvas(tc));
+            }
         }
     }
 
