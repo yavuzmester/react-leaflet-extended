@@ -1,10 +1,15 @@
 "use strict";
 
 const RL_Map = require("react-leaflet").Map;
+const L = require("leaflet");
 
 class Map extends RL_Map {
     componentDidUpdate(prevProps /*: object */) {
-        //Do nothing here, as it seems we are better without it.
+        const {bounds} = this.props;
+
+        if (!L.latLngBounds(bounds).equals(prevProps.bounds)) {
+            this.leafletElement.fitBounds(bounds);
+        }
     }
 }
 
