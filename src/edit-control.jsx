@@ -97,7 +97,7 @@ class EditControl extends LayersControl {
 
         this._updateShapes();
 
-        map.on("draw:created", function(e) {
+        map.on("draw:created", e => {
             const shapeLayer = e.layer;
 
             layerContainer.addLayer(shapeLayer);
