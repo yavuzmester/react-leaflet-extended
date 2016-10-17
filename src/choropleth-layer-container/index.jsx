@@ -11,6 +11,12 @@ const shallowEqual = require("shallowequal");
 
 const propTypes = {
     name: PropTypes.string.isRequired,
+    categories: PropTypes.arrayOf(
+        PropTypes.shape({
+            category: PropTypes.string.isRequired,
+            title: PropTypes.string
+        }).isRequired
+    ).isRequired,
     geojson: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.object
@@ -20,12 +26,6 @@ const propTypes = {
             category: PropTypes.string.isRequired,
             value: PropTypes.number.isRequired,
             color: PropTypes.string.isRequired
-        })
-    ),
-    categoryTitles: PropTypes.arrayOf(
-        PropTypes.shape({
-            category: PropTypes.string.isRequired,
-            categoryTitle: PropTypes.string.isRequired
         })
     ),
     extents: PropTypes.arrayOf(
@@ -41,7 +41,6 @@ const propTypes = {
 
 const defaultProps = {
     data: [],
-    categoryTitles: [],
     extents: [],
     visibility: false
 };
@@ -90,10 +89,8 @@ class ChoroplethLayerContainer extends Component {
     }
 
     titleForCategory(category /*: string */) /*: string */ {
-        const {categoryTitles} = this.props;
-        return categoryTitles ?
-            categoryTitles.find(ct => ct.category === category).categoryTitle :
-            category;
+        const {categories} = this.props;
+        return categories.find(c => c.category === category).title || category;
     }
 
     categoryFromFeature(feature /*: object */) /*: string */ {
