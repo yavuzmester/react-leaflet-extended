@@ -105,28 +105,6 @@ class EditControl extends LayersControl {
         map.on("draw:deletestop", onDrawsDeleteStop);
     }
 
-    //TODO:
-    //_createShapes(shapesToCreate=[] /*: ?array */) {
-    //    shapesToCreate.forEach(shape => {
-    //        var newShapeLayer;
-    //        if (shape.options.type === "rectangle") {
-    //            newShapeLayer = new L.Rectangle(L.LatLngBounds.toLatLngs(shape.bounds), shape.options);
-    //        }
-    //        else if (shape.options.type === "polygon") {
-    //            newShapeLayer = new L.Polygon(L.LatLngBounds.toLatLngs(shape.bounds), shape.options);
-    //        }
-    //        else {
-    //            console.error("shape.options.type is invalid");
-    //        }
-    //
-    //        if (newShapeLayer) {
-    //            newShapeLayer._leaflet_id = Number(shape.id);   //set the original id
-    //            this.geoEditControl().addDraw(newShapeLayer);    //add draw
-    //            this._bindShapeLayerEvents(newShapeLayer);      //bind shape layer events
-    //        }
-    //    });
-    //}
-
     componentDidUpdate(prevProps /*: object */) {
         super.componentDidUpdate(prevProps);
         this.leafletElement.setDrawingOptions(this.props.draw);
