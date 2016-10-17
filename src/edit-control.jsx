@@ -125,10 +125,13 @@ class EditControl extends LayersControl {
             const ShapeLayer = shape.type === "rectangle" ? L.Rectangle : L.Polygon,
                 newShapeLayer = new ShapeLayer(
                     shape.bounds,
-                    {
-                        color: shape.color,
-                        SHAPE_TYPE: shape.type
-                    }
+                    Object.assign(
+                        {},
+                        this.options().draw[shape.type].shapeOptions,
+                        {
+                            color: shape.color
+                        }
+                    )
                 );
 
             layerContainer.addLayer(newShapeLayer);
