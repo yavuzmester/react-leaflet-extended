@@ -91,7 +91,9 @@ class ChoroplethLayerContainer extends Component {
 
     titleForCategory(category /*: string */) /*: string */ {
         const {categoryTitles} = this.props;
-        return (categoryTitles.find(ct => ct.category === category) || {categoryTitle: category}).categoryTitle;
+        return categoryTitles ?
+            categoryTitles.find(ct => ct.category === category).categoryTitle :
+            category;
     }
 
     categoryFromFeature(feature /*: object */) /*: string */ {
