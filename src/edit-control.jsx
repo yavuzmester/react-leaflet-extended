@@ -84,39 +84,14 @@ class EditControl extends LayersControl {
             onDrawsDeleted,
             onDrawsDeleteStart,
             onDrawsDeleteStop,
-            onMounted
+            onMounted,
+            shapes
             } = this.props;
 
         const {map, layerContainer} = this.context;
 
         this.leafletElement = new L.Control.Draw(this.options());
         onMounted(this.leafletElement);
-
-        this._updateShapes();
-
-        map.on("draw:created", e => {
-            const shapeLayer = e.layer;
-
-            //layerContainer.addLayer(shapeLayer);          //shapes will be updated on componentDidUpdate
-            //this._bindEventsToShapeLayer(shapeLayer);
-
-            onDrawCreated.call(null, e);
-        });
-
-        map.on("draw:edited", onDrawsEdited);
-        map.on("draw:editstart", onDrawsEditStart);
-        map.on("draw:editstop", onDrawsEditStop);
-
-        map.on("draw:deleted", onDrawsDeleted);
-        map.on("draw:deletestart", onDrawsDeleteStart);
-        map.on("draw:deletestop", onDrawsDeleteStop);
-    }
-
-    _updateShapes() {
-        const {shapes} = this.props,
-            {layerContainer} = this.context;
-
-        layerContainer.clearLayers();
 
         shapes.forEach(shape => {
             const ShapeLayer = shape.type === "rectangle" ? L.Rectangle : L.Polygon,
@@ -134,6 +109,23 @@ class EditControl extends LayersControl {
             layerContainer.addLayer(newShapeLayer);
             this._bindEventsToShapeLayer(newShapeLayer);
         });
+
+        map.on("draw:created", e => {
+            const shapeLayer = e.layer;
+
+            layerContainer.addLayer(shapeLayer);
+            this._bindEventsToShapeLayer(shapeLayer);
+
+            onDrawCreated.call(null, e);
+        });
+
+        map.on("draw:edited", onDrawsEdited);
+        map.on("draw:editstart", onDrawsEditStart);
+        map.on("draw:editstop", onDrawsEditStop);
+
+        map.on("draw:deleted", onDrawsDeleted);
+        map.on("draw:deletestart", onDrawsDeleteStart);
+        map.on("draw:deletestop", onDrawsDeleteStop);
     }
 
     _bindEventsToShapeLayer(shapeLayer /*: object */) {
@@ -146,8 +138,7 @@ class EditControl extends LayersControl {
         shapeLayer.on("mouseover", onDrawMouseOver);
         shapeLayer.on("mouseout", onDrawMouseOut);
 
-        //shapeLayer.on("editdrag", _.throttle(onDrawEdited, 400));  //redrawing shapes does not go along with editdrag
-                                                                     // so the feature is removed.
+        shapeLayer.on("editdrag", _.throttle(onDrawEdited, 400));
         shapeLayer.on("revert-edited", onDrawEdited);
         shapeLayer.on("revert-deleted", onDrawEdited);
     }
@@ -155,7 +146,6 @@ class EditControl extends LayersControl {
     componentDidUpdate(prevProps /*: object */) {
         super.componentDidUpdate(prevProps);
         this.leafletElement.setDrawingOptions(this.props.draw);
-        this._updateShapes();
     }
 
     isAnyToolbarEnabled() /*: boolean */ {
