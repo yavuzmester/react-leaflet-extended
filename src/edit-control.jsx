@@ -95,7 +95,7 @@ class EditControl extends LayersControl {
         this.leafletElement = new L.Control.Draw(this.options());
         onMounted(this.leafletElement);
 
-        _updateShapes();
+        this._updateShapes();
 
         map.on("draw:created", function(e) {
             const shapeLayer = e.layer;
