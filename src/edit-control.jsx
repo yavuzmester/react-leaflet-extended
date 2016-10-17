@@ -124,7 +124,7 @@ class EditControl extends LayersControl {
         shapes.forEach(shape => {
             const ShapeLayer = shape.type === "rectangle" ? L.Rectangle : L.Polygon,
                 newShapeLayer = new ShapeLayer(
-                    L.LatLngBounds.toLatLngs(shape.bounds),
+                    shape.bounds,
                     {
                         color: shape.color,
                         SHAPE_TYPE: shape.type
