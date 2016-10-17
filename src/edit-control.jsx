@@ -78,9 +78,6 @@ class EditControl extends LayersControl {
     componentWillMount() {
         const {
             onDrawCreated,
-            onDrawEdited,
-            onDrawMouseOver,
-            onDrawMouseOut,
             onDrawsEdited,
             onDrawsEditStart,
             onDrawsEditStop,
@@ -149,7 +146,8 @@ class EditControl extends LayersControl {
         shapeLayer.on("mouseover", onDrawMouseOver);
         shapeLayer.on("mouseout", onDrawMouseOut);
 
-        shapeLayer.on("editdrag", _.throttle(onDrawEdited, 400));
+        //shapeLayer.on("editdrag", _.throttle(onDrawEdited, 400));  //redrawing shapes does not go along with editdrag
+                                                                     // so the feature is removed.
         shapeLayer.on("revert-edited", onDrawEdited);
         shapeLayer.on("revert-deleted", onDrawEdited);
     }
