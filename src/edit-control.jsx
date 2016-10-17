@@ -20,6 +20,18 @@ const propTypes = {
     onDrawsDeleteStop: PropTypes.func,
     onMounted: PropTypes.func,
     draw: PropTypes.object.isRequired,
+    shapes: PropTypes.arrayOf(
+        PropTypes.shape({
+            bounds: PropTypes.arrayOf(
+                PropTypes.shape({
+                    lat: PropTypes.number.isRequired,
+                    lng: PropTypes.number.isRequired
+                }).isRequired
+            ).isRequired,
+            color: PropTypes.string.isRequired,
+            type: PropTypes.string.isRequired
+        })
+    ),
     position: PropTypes.oneOf([
         "topright",
         "topleft",
@@ -39,7 +51,8 @@ const defaultProps = {
     onDrawsDeleted: _.noop,
     onDrawsDeleteStart: _.noop,
     onDrawsDeleteStop: _.noop,
-    onMounted: _.noop
+    onMounted: _.noop,
+    shapes: []
 };
 
 class EditControl extends LayersControl {
@@ -74,7 +87,7 @@ class EditControl extends LayersControl {
             onDrawsDeleted,
             onDrawsDeleteStart,
             onDrawsDeleteStop,
-            onMounted,
+            onMounted
             } = this.props;
 
         const {map, layerContainer} = this.context;
@@ -82,18 +95,15 @@ class EditControl extends LayersControl {
         this.leafletElement = new L.Control.Draw(this.options());
         onMounted(this.leafletElement);
 
+        _updateShapes();
+
         map.on("draw:created", function(e) {
-            const layer = e.layer;
+            const shapeLayer = e.layer;
 
-            layerContainer.addLayer(e.layer);
+            layerContainer.addLayer(shapeLayer);
+            this._bindEventsToShapeLayer(shapeLayer);
+
             onDrawCreated.call(null, e);
-
-            layer.on("mouseover", onDrawMouseOver);
-            layer.on("mouseout", onDrawMouseOut);
-
-            layer.on("editdrag", _.throttle(onDrawEdited, 400));
-            layer.on("revert-edited", onDrawEdited);
-            layer.on("revert-deleted", onDrawEdited);
         });
 
         map.on("draw:edited", onDrawsEdited);
@@ -105,9 +115,46 @@ class EditControl extends LayersControl {
         map.on("draw:deletestop", onDrawsDeleteStop);
     }
 
+    _updateShapes() {
+        const {shapes} = this.props,
+            {layerContainer} = this.context;
+
+        layerContainer.clearLayers();
+
+        shapes.forEach(shape => {
+            const ShapeLayer = shape.type === "rectangle" ? L.Rectangle : L.Polygon,
+                newShapeLayer = new ShapeLayer(
+                    L.LatLngBounds.toLatLngs(shape.bounds),
+                    {
+                        color: shape.color,
+                        SHAPE_TYPE: shape.type
+                    }
+                );
+
+            layerContainer.addLayer(newShapeLayer);
+            this._bindEventsToShapeLayer(newShapeLayer);
+        });
+    }
+
+    _bindEventsToShapeLayer(shapeLayer /*: object */) {
+        const {
+            onDrawEdited,
+            onDrawMouseOver,
+            onDrawMouseOut
+            } = this.props;
+
+        shapeLayer.on("mouseover", onDrawMouseOver);
+        shapeLayer.on("mouseout", onDrawMouseOut);
+
+        shapeLayer.on("editdrag", _.throttle(onDrawEdited, 400));
+        shapeLayer.on("revert-edited", onDrawEdited);
+        shapeLayer.on("revert-deleted", onDrawEdited);
+    }
+
     componentDidUpdate(prevProps /*: object */) {
         super.componentDidUpdate(prevProps);
         this.leafletElement.setDrawingOptions(this.props.draw);
+        this._updateShapes();
     }
 
     isAnyToolbarEnabled() /*: boolean */ {
