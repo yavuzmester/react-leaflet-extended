@@ -93,22 +93,7 @@ class EditControl extends LayersControl {
         this.leafletElement = new L.Control.Draw(this.options());
         onMounted(this.leafletElement);
 
-        shapes.forEach(shape => {
-            const ShapeLayer = shape.type === "rectangle" ? L.Rectangle : L.Polygon,
-                newShapeLayer = new ShapeLayer(
-                    shape.bounds,
-                    Object.assign(
-                        {},
-                        this.options().draw[shape.type].shapeOptions,
-                        {
-                            color: shape.color
-                        }
-                    )
-                );
-
-            layerContainer.addLayer(newShapeLayer);
-            this._bindEventsToShapeLayer(newShapeLayer);
-        });
+        this._updateShapes();
 
         map.on("draw:created", e => {
             const shapeLayer = e.layer;
@@ -126,6 +111,45 @@ class EditControl extends LayersControl {
         map.on("draw:deleted", onDrawsDeleted);
         map.on("draw:deletestart", onDrawsDeleteStart);
         map.on("draw:deletestop", onDrawsDeleteStop);
+    }
+
+    _updateShapes() {
+        const {shapes} = this.props,
+            {layerContainer} = this.context;
+
+        layerContainer.eachLayer(shapeLayer => {
+            const shape = shapes.find(s => s.color === shapeLayer.options.color && s.type === shapeLayer.options.SHAPE_TYPE);
+
+            if (!shape) {
+                layerContainer.removeLayer(shapeLayer);
+            }
+            else {
+                shapeLayer.setLatLngs(shape.bounds);
+            }
+        });
+
+        shapes.forEach(shape => {
+            const shapeLayer = _.values(layerContainer._layers).find(shapeLayer => {
+                return shapeLayer.options.color === shape.color && shapeLayer.options.SHAPE_TYPE === shape.type;
+            });
+
+            if (!shapeLayer) {
+                const ShapeLayer = shape.type === "rectangle" ? L.Rectangle : L.Polygon,
+                    newShapeLayer = new ShapeLayer(
+                        shape.bounds,
+                        Object.assign(
+                            {},
+                            this.options().draw[shape.type].shapeOptions,
+                            {
+                                color: shape.color
+                            }
+                        )
+                    );
+
+                layerContainer.addLayer(newShapeLayer);
+                this._bindEventsToShapeLayer(newShapeLayer);
+            }
+        });
     }
 
     _bindEventsToShapeLayer(shapeLayer /*: object */) {
@@ -146,6 +170,7 @@ class EditControl extends LayersControl {
     componentDidUpdate(prevProps /*: object */) {
         super.componentDidUpdate(prevProps);
         this.leafletElement.setDrawingOptions(this.props.draw);
+        this._updateShapes();
     }
 
     isAnyToolbarEnabled() /*: boolean */ {
