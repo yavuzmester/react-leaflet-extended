@@ -18,8 +18,8 @@ const propTypes = {
                 PropTypes.shape({
                     x: PropTypes.number.isRequired,
                     y: PropTypes.number.isRequired,
-                    color: PropTypes.string.isRequired,
-                    opacity: PropTypes.number.isRequired
+                    color: PropTypes.string,
+                    opacity: PropTypes.number
                 })
             ).isRequired
         })
