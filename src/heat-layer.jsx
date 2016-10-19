@@ -18,8 +18,8 @@ const propTypes = {
                 PropTypes.shape({
                     x: PropTypes.number.isRequired,
                     y: PropTypes.number.isRequired,
-                    color: PropTypes.string.isRequired,
-                    opacity: PropTypes.number.isRequired
+                    color: PropTypes.string,
+                    opacity: PropTypes.number
                 })
             ).isRequired
         })
@@ -101,14 +101,16 @@ class HeatLayer extends CanvasTileLayer {
             squaresInTile = this.squaresInTile(tile);
 
         return squaresInTile.reduce((memo, s) => {
-            const idx = (memo.height - 1 - s.y) * memo.width + s.x,
-                [r, g, b] = hexToRgb(s.color),
-                a = Math.max(0, Math.min(255, s.opacity)) * 255;
+            if (s.color && s.opacity) {
+                const idx = (memo.height - 1 - s.y) * memo.width + s.x,
+                    [r, g, b] = hexToRgb(s.color),
+                    a = Math.max(0, Math.min(255, s.opacity)) * 255;
 
-            memo.data[idx * 4] = r;
-            memo.data[idx * 4 + 1] = g;
-            memo.data[idx * 4 + 2] = b;
-            memo.data[idx * 4 + 3] = a;
+                memo.data[idx * 4] = r;
+                memo.data[idx * 4 + 1] = g;
+                memo.data[idx * 4 + 2] = b;
+                memo.data[idx * 4 + 3] = a;
+            }
 
             return memo;
         }, blankImageData);
