@@ -13,14 +13,13 @@ const propTypes = {
             extent: PropTypes.arrayOf(
                 PropTypes.number.isRequired
             ).isRequired
-        })
-    ),
+        }).isRequired
+    ).isRequired,
     visibility: PropTypes.bool
 };
 
 const defaultProps = {
     position: "bottomleft",
-    extents: [],
     visibility: false
 };
 

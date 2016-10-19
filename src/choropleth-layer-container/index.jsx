@@ -75,7 +75,11 @@ class ChoroplethLayerContainer extends Component {
 
                 <ChoroplethInfoControl ref="geo-choropleth-info-control"/>
 
-                <ChoroplethLegendControl extents={extents} visibility={visibility}/>
+                {
+                    extents.length > 0 ?
+                        <ChoroplethLegendControl extents={extents} visibility={visibility}/> :
+                        ""
+                }
             </LayerGroup>
         );
     }
