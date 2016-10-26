@@ -17,6 +17,7 @@ module.exports = {
     GridLayer: GridLayer,
     HeatLayer: HeatLayer,
     MarkerClusterGroupLayer: MarkerClusterGroupLayer,
+    MarkerClusterGroupLayerContainer: MarkerClusterGroupLayerContainer,
     ChoroplethLayerContainer: ChoroplethLayerContainer,
     EditControl: EditControl
 };

@@ -30,12 +30,17 @@ class MarkerClusterGroupLayerContainer extends Component {
     }
 
     render() {
-        const {data} = this.props;
+        const {name, data, visibility} = this.props;
 
         return (
             <LayerGroup>
-                <MarkerClusterGroupLayer data={data}/>
-                <NwInfraCompassControl visibility={visibility}/>
+                <MarkerClusterGroupLayer name={name} data={data}/>
+
+                {
+                    name.includes("nw-cases") ?
+                        <NwInfraCompassControl visibility={visibility}/> :
+                        ""
+                }
             </LayerGroup>
         );
     }
