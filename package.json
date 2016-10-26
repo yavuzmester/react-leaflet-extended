@@ -1,6 +1,8 @@
 {
     "name": "@yavuzmester/react-leaflet-extended",
-    "version": "0.1.19",
+    "version": "0.1.21",
+    "main": "build/index.js",
+    "files": ["build/**/*.js"],
     "description": "react leaflet extended",
     "keywords": ["react", "leaflet", "custom", "extend"],
     "repository": {
@@ -8,17 +10,23 @@
         "url": "https://github.com/yavuzmester/react-leaflet-extended"
     },
     "dependencies": {
-        "react": "^15.0.2",
-        "shallowequal": "0.2.2",
+        "hex-rgb": "1.0.0",
         "leaflet": "^0.7.7",
         "leaflet-draw": "^0.3.2",
         "leaflet.markercluster": "^0.5.0",
+        "react": "^15.0.2",
+        "react-dom": "^15.0.2",
         "react-leaflet": "^0.12.2",
-        "hex-rgb": "1.0.0",
+        "shallowequal": "0.2.2",
         "underscore": "1.8.3"
     },
-    "browserify": {
-        "transform": [["babelify", {"presets": ["react"]}]]
+    "devDependencies": {
+        "babel-cli": "^6.14.0",
+        "babel-plugin-transform-react-jsx": "^6.8.0"
+    },
+    "scripts": {
+        "prepublish-only": "rm -rf build && mkdir build && cp index.js build && babel --plugins transform-react-jsx src --out-dir build/src",
+        "my-publish": "npm run prepublish-only && npm publish --access=public"
     },
     "author": "Yavuz Mester",
     "license": "Apache-2.0"

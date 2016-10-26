@@ -1,1 +1,1 @@
-# react-leaflet-extended
+# @yavuzmester/react-leaflet-extended
