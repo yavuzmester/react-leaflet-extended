@@ -1,7 +1,6 @@
 {
     "name": "@yavuzmester/react-leaflet-extended",
-    "version": "0.1.6",
-    "main": "build/index.js",
+    "version": "0.1.7",
     "description": "react leaflet extended",
     "keywords": ["react", "leaflet", "custom", "extend"],
     "repository": {
@@ -9,8 +8,6 @@
         "url": "https://github.com/yavuzmester/react-leaflet-extended"
     },
     "dependencies": {
-        "babel-cli": "^6.14.0",
-        "babel-plugin-transform-react-jsx": "^6.8.0",
         "react": "^15.0.2",
         "shallowequal": "0.2.2",
         "leaflet": "^0.7.7",
@@ -20,9 +17,8 @@
         "hex-rgb": "1.0.0",
         "underscore": "1.8.3"
     },
-    "scripts": {
-        "prepublish": "rm -rf build && mkdir build && babel --plugins transform-react-jsx src --out-file build/index.js",
-        "test": "npm install && mocha"
+    "browserify": {
+        "transform": [["babelify", {"presets": ["react"]}]]
     },
     "author": "Yavuz Mester",
     "license": "Apache-2.0"
