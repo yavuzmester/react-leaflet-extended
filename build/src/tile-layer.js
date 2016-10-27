@@ -7,35 +7,22 @@ const _ = require("underscore");
 const propTypes = {
     name: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
+    noWrap: PropTypes.bool,
     opacity: PropTypes.number
 };
 
-//to prevent glitch on the tile layer at the very right side
 const defaultProps = {
-    noWrap: false,
+    noWrap: true,
     opacity: 1
 };
 
 class TileLayer extends RL_TileLayer {
-    constructor(props /*: object */, context /*: object */) {
-        super(props, context);
-    }
-
     name() {
         return this.props.name;
     }
 
-    componentDidMount() {
-        super.componentDidMount();
-
-        //to prevent glitch on the tile layer at the very right side
-        setTimeout(() => {
-            this.leafletElement.setParams({ noWrap: true });
-        }, 300);
-    }
-
-    shouldComponentUpdate(nextProps /*: object */, nextState /*: object */) /*: boolean */{
-        return !_.isEqual(_.pick(this.props, Object.keys(propTypes)), _.pick(nextProps, Object.keys(propTypes))) || !_.isEqual(this.state, nextState);
+    shouldComponentUpdate(nextProps /*: object */) /*: boolean */{
+        return !_.isEqual(_.pick(this.props, Object.keys(propTypes)), _.pick(nextProps, Object.keys(propTypes)));
     }
 }
 
