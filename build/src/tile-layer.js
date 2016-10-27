@@ -11,6 +11,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    noWrap: true,
     opacity: 1
 };
 
@@ -25,6 +26,7 @@ class TileLayer extends RL_TileLayer {
     }
 
     componentDidMount() {
+        super.componentDidMount();
         this.setState({ noWrap: false }); //to prevent glitch on the tile layer at the very right side
     }
 
