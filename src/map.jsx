@@ -2,16 +2,14 @@
 
 const RL_Map = require("react-leaflet").Map;
 const L = require("leaflet");
-const {omit, isUndefined} = require("underscore");
 
 class Map extends RL_Map {
-    componentDidMount () {
-        const props = omit(this.props, ["children", "className", "id", "style"]);
-        this.leafletElement = L.map(this.state.id, props);
-        super.componentDidMount();
-        //this.setState({map: this.leafletElement});    //commented out
-        if (!isUndefined(props.bounds)) {
-            this.leafletElement.fitBounds(props.bounds, props.boundsOptions);
+    //react-leaflet puts "map" on state, we prevent it by overriding setState.
+    setState(obj /*: Object */) {
+        const newObj = _.omit(obj, "map");
+
+        if (Object.keys(newObj).length > 0) {
+            super.setState(newObj);
         }
     }
 
