@@ -62,6 +62,11 @@ class GridLayer extends CanvasTileLayer {
         ctx.fillText(tileText, 10, 256 - 10);
     }
 
+    componentDidMount() {
+        super.componentDidMount();
+        this.draw();
+    }
+
     componentDidUpdate(prevProps /*: object */) {
         super.componentDidUpdate(prevProps);
         this.draw();
