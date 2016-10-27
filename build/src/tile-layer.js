@@ -10,15 +10,15 @@ const propTypes = {
     opacity: PropTypes.number
 };
 
+//to prevent glitch on the tile layer at the very right side
 const defaultProps = {
-    noWrap: true,
+    noWrap: false,
     opacity: 1
 };
 
 class TileLayer extends RL_TileLayer {
     constructor(props /*: object */, context /*: object */) {
         super(props, context);
-        this.state = { noWrap: true }; //to prevent glitch on the tile layer at the very right side
     }
 
     name() {
@@ -27,7 +27,11 @@ class TileLayer extends RL_TileLayer {
 
     componentDidMount() {
         super.componentDidMount();
-        this.setState({ noWrap: false }); //to prevent glitch on the tile layer at the very right side
+
+        //to prevent glitch on the tile layer at the very right side
+        setTimeout(() => {
+            this.leafletElement.setParams({ noWrap: true });
+        }, 300);
     }
 
     shouldComponentUpdate(nextProps /*: object */, nextState /*: object */) /*: boolean */{
