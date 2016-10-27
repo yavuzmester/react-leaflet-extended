@@ -17,7 +17,7 @@ const defaultProps = {
 class TileLayer extends RL_TileLayer {
     constructor(props /*: object */, context /*: object */) {
         super(props, context);
-        this.state({noWrap: true});      //to prevent glitch on the tile layer at the very right side
+        this.state = {noWrap: true};      //to prevent glitch on the tile layer at the very right side
     }
 
     name() {
