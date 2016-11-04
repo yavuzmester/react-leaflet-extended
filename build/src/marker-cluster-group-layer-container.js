@@ -2,7 +2,7 @@
 
 const React = require("react"),
       { Component, PropTypes } = React;
-const { LayerGroup } = require("react-leaflet");
+const { LayerGroup } = require("@yavuzmester/react-leaflet");
 const MarkerClusterGroupLayer = require("./marker-cluster-group-layer");
 const NwInfraCompassControl = require("./nw-infra-compass-control");
 const _ = require("underscore");

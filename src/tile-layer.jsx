@@ -1,7 +1,7 @@
 "use strict";
 
 const {PropTypes} = require("react");
-const RL_TileLayer = require("react-leaflet").TileLayer;
+const RL_TileLayer = require("@yavuzmester/react-leaflet").TileLayer;
 const _ = require("underscore");
 
 const propTypes = {
