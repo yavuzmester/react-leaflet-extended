@@ -1,6 +1,6 @@
 {
     "name": "@yavuzmester/react-leaflet-extended",
-    "version": "0.1.39",
+    "version": "0.1.40",
     "main": "build/index.js",
     "files": ["build/**/*.js"],
     "description": "react leaflet extended",
@@ -16,13 +16,14 @@
         "leaflet.markercluster": "^0.5.0",
         "react": "^15.0.2",
         "react-dom": "^15.0.2",
-        "@yavuzmester/react-leaflet": "0.12.3-try3",
+        "@yavuzmester/react-leaflet": "0.12.3-try4",
         "shallowequal": "0.2.2",
         "underscore": "1.8.3"
     },
     "browserify-shim": {
         "leaflet": "global:L",
-        "react": "global:React"
+        "react": "global:React",
+        "react-dom": "global:ReactDOM"
     },
     "browserify": {
         "transform": ["browserify-shim"]
