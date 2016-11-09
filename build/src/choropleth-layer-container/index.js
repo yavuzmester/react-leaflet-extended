@@ -15,7 +15,7 @@ const propTypes = {
         category: PropTypes.string.isRequired,
         title: PropTypes.string
     }).isRequired).isRequired,
-    geojson: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
+    geoJsonVal: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
     data: PropTypes.arrayOf(PropTypes.shape({
         category: PropTypes.string.isRequired,
         value: PropTypes.number.isRequired,
@@ -50,13 +50,13 @@ class ChoroplethLayerContainer extends Component {
     }
 
     render() {
-        const { geojson, data, extents, visibility } = this.props;
+        const { geoJsonVal, data, extents, visibility } = this.props;
 
         return React.createElement(
             LayerGroup,
             null,
             React.createElement(ChoroplethLayer, { ref: "geo-choropleth-layer",
-                geojson: geojson,
+                geoJsonVal: geoJsonVal,
                 data: data,
                 categoryFromFeature: this.categoryFromFeature,
                 onFeatureMouseOver: this.onFeatureMouseOver,
