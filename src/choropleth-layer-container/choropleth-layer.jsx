@@ -2,12 +2,12 @@
 
 const {PropTypes} = require("react");
 const L = require("leaflet");
-const {GeoJson} = require("@yavuzmester/react-leaflet");
+const {RL_GeoJson} = require("@yavuzmester/react-leaflet");
 const _ = require("underscore");
 const shallowEqual = require("shallowequal");
 
 const propTypes = {
-    geojson: PropTypes.oneOfType([
+    geoJsonVal: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.object
     ]).isRequired,
@@ -28,7 +28,7 @@ const defaultProps = {
     data: []
 };
 
-class ChoroplethLayer extends GeoJson {
+class ChoroplethLayer extends RL_GeoJson {
     constructor(props /*: object */, context /*: object */) {
         super(props, context);
 
@@ -37,13 +37,13 @@ class ChoroplethLayer extends GeoJson {
     }
 
     componentWillMount () {
-        const {geojson} = this.props,
+        const {geoJsonVal} = this.props,
             options = {
                 style: this.style,
                 onEachFeature: this.onEachFeature
             };
 
-        this.leafletElement = L.geoJson(geojson, options);
+        this.leafletElement = L.geoJson(geoJsonVal, options);
     }
 
     style(feature /*: object */) /*: object */ {

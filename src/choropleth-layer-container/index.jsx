@@ -17,7 +17,7 @@ const propTypes = {
             title: PropTypes.string
         }).isRequired
     ).isRequired,
-    geojson: PropTypes.oneOfType([
+    geoJsonVal: PropTypes.oneOfType([
         PropTypes.array,
         PropTypes.object
     ]).isRequired,
@@ -61,12 +61,12 @@ class ChoroplethLayerContainer extends Component {
     }
 
     render() {
-        const {geojson, data, extents, visibility} = this.props;
+        const {geoJsonVal, data, extents, visibility} = this.props;
 
         return (
             <LayerGroup>
                 <ChoroplethLayer ref="geo-choropleth-layer"
-                    geojson={geojson}
+                    geoJsonVal={geoJsonVal}
                     data={data}
                     categoryFromFeature={this.categoryFromFeature}
                     onFeatureMouseOver={this.onFeatureMouseOver}
