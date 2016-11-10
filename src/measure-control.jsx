@@ -3,7 +3,7 @@
 const React = require("react");
 const {MapControl} = require("@yavuzmester/react-leaflet");
 const {control, DomUtil} = require("leaflet");
-require("leaflet.measure");
+require("leaflet-measure");
 const ReactDOM = require("react-dom");
 
 const defaultProps = {
