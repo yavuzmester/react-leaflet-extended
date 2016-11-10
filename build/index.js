@@ -9,15 +9,17 @@ const MarkerClusterGroupLayer = require("./src/marker-cluster-group-layer");
 const MarkerClusterGroupLayerContainer = require("./src/marker-cluster-group-layer-container");
 const ChoroplethLayerContainer = require("./src/choropleth-layer-container");
 const EditControl = require("./src/edit-control");
+const MeasureControl = require("./src/measure-control");
 
 module.exports = {
-    Map: Map,
-    TileLayer: TileLayer,
-    CanvasTileLayer: CanvasTileLayer,
-    GridLayer: GridLayer,
-    HeatLayer: HeatLayer,
-    MarkerClusterGroupLayer: MarkerClusterGroupLayer,
-    MarkerClusterGroupLayerContainer: MarkerClusterGroupLayerContainer,
-    ChoroplethLayerContainer: ChoroplethLayerContainer,
-    EditControl: EditControl
+    Map,
+    TileLayer,
+    CanvasTileLayer,
+    GridLayer,
+    HeatLayer,
+    MarkerClusterGroupLayer,
+    MarkerClusterGroupLayerContainer,
+    ChoroplethLayerContainer,
+    EditControl,
+    MeasureControl
 };
