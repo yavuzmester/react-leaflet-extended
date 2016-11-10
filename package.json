@@ -1,6 +1,6 @@
 {
     "name": "@yavuzmester/react-leaflet-extended",
-        "version": "0.3.2",
+        "version": "0.3.11",
     "main": "build/index.js",
     "files": ["build/**/*.js"],
     "description": "react leaflet extended",
@@ -14,7 +14,6 @@
         "leaflet": "^0.7.7",
         "leaflet-draw": "^0.4.0",
         "leaflet.markercluster": "^0.5.0",
-        "leaflet-measure": "^2.0.5",
         "react": "^15.0.2",
         "react-dom": "^15.0.2",
         "@yavuzmester/react-leaflet": "0.12.3-try4",
