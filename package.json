@@ -1,6 +1,6 @@
 {
     "name": "@yavuzmester/react-leaflet-extended",
-        "version": "0.3.11",
+        "version": "0.3.12",
     "main": "build/index.js",
     "files": ["build/**/*.js"],
     "description": "react leaflet extended",
@@ -19,14 +19,6 @@
         "@yavuzmester/react-leaflet": "0.12.3-try4",
         "shallowequal": "0.2.2",
         "underscore": "1.8.3"
-    },
-    "browserify-shim": {
-        "leaflet": "global:L",
-        "react": "global:React",
-        "react-dom": "global:ReactDOM"
-    },
-    "browserify": {
-        "transform": ["browserify-shim"]
     },
     "devDependencies": {
         "babel-cli": "^6.14.0",
