@@ -2,7 +2,7 @@
 
 const React = require("react"),
       { Component, PropTypes } = React;
-const { LayerGroup } = require("@yavuzmester/react-leaflet");
+const { LayerGroup } = require("react-leaflet");
 const ChoroplethLayer = require("./choropleth-layer");
 const ChoroplethInfoControl = require("./choropleth-info-control");
 const ChoroplethLegendControl = require("./choropleth-legend-control");

@@ -4,7 +4,7 @@ const React = require("react"),
       { PropTypes } = React;
 const L = require("leaflet");
 require("leaflet-draw");
-const { LayersControl } = require("@yavuzmester/react-leaflet");
+const { LayersControl } = require("react-leaflet");
 const _ = require("underscore");
 
 const propTypes = {

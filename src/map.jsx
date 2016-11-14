@@ -1,6 +1,6 @@
 "use strict";
 
-const RL_Map = require("@yavuzmester/react-leaflet").Map;
+const RL_Map = require("react-leaflet").Map;
 const L = require("leaflet");
 const {omit} = require("underscore");
 

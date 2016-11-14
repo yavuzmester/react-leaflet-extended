@@ -2,7 +2,7 @@
 
 const {PropTypes} = require("react");
 const L = require("leaflet");
-const RL_GeoJson = require("@yavuzmester/react-leaflet").GeoJson;
+const RL_GeoJson = require("react-leaflet").GeoJson;
 const _ = require("underscore");
 const shallowEqual = require("shallowequal");
 
