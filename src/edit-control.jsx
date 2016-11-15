@@ -3,7 +3,7 @@
 const React = require("react"),
     {PropTypes} = React;
 const L = require("leaflet");
-require("leaflet-draw");
+L.Control.Draw = require("leaflet-draw");
 const {LayersControl} = require("react-leaflet");
 const _ = require("underscore");
 
