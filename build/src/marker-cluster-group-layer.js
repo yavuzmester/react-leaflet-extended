@@ -2,7 +2,7 @@
 
 const { PropTypes } = require("react");
 const L = require("leaflet");
-require("leaflet.markercluster");
+L.MarkerClusterGroup = require("leaflet.markercluster");
 const RL_MapLayer = require("react-leaflet").MapLayer;
 const _ = require("underscore");
 const shallowEqual = require("shallowequal");
@@ -51,7 +51,7 @@ class MarkerClusterGroupLayer extends RL_MapLayer {
 
     componentWillMount() {
         super.componentWillMount();
-        this.leafletElement = L.markerClusterGroup();
+        this.leafletElement = new L.MarkerClusterGroup();
     }
 
     componentDidMount() {
