@@ -58,7 +58,9 @@ class GridLayer extends CanvasTileLayer {
 
         ctx.font = "10pt sans-serif";
         ctx.fillStyle = "white";
-        ctx.fillText(tileText, 10, 256 - 10);
+
+        ctx.fillText(tileText.slice(0, tileText.indexOf("(")), 10, 10);
+        ctx.fillText(tileText.slice(tileText.indexOf("(")), 10, 256 - 10);
     }
 
     componentDidMount() {
