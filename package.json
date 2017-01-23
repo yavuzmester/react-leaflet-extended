@@ -1,6 +1,6 @@
 {
     "name": "@yavuzmester/react-leaflet-extended",
-        "version": "0.4.1",
+        "version": "0.4.3",
     "main": "build/index.js",
     "files": ["build/**/*.js"],
     "description": "react leaflet extended",
