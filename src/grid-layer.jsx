@@ -61,8 +61,17 @@ class GridLayer extends CanvasTileLayer {
         ctx.font = "10pt sans-serif";
         ctx.fillStyle = "white";
 
-        ctx.fillText(tileText.slice(0, tileText.slice(1).indexOf("(")), 10, 20);
-        ctx.fillText(_.rest(tileText.split(/\s+/), 1).join(" "), 10, 256 - 10);
+        const indexOfFirstLeftParen = 0,
+            indexOfSecondLeftParen = tileText.slice(1).indexOf("(") + 1,
+            indexOfLastSpace = tileText.lastIndexOf(" ");
+
+        const tileXYStr = tileText.slice(indexOfFirstLeftParen, indexOfSecondLeftParen - 1),
+            tileMercatorStr = tileText.slice(indexOfSecondLeftParen, indexOfLastSpace),
+            count = tileText.slice(indexOfLastSpace + 1);
+
+        ctx.fillText(tileXYStr, 10, 20);
+        ctx.fillText(count, 100, 123);
+        ctx.fillText(tileMercatorStr, 10, 246);
     }
 
     componentDidMount() {
