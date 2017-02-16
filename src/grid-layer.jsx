@@ -69,9 +69,9 @@ class GridLayer extends CanvasTileLayer {
             tileMercatorStr = tileText.slice(indexOfSecondLeftParen, indexOfLastSpace),
             count = tileText.slice(indexOfLastSpace + 1);
 
-        ctx.fillText(tileXYStr, 10, 20);
+        ctx.fillText(tileXYStr, 2, 20);
         ctx.fillText(count, 100, 123);
-        ctx.fillText(tileMercatorStr, 10, 246);
+        ctx.fillText(tileMercatorStr, 2, 246);
     }
 
     componentDidMount() {
