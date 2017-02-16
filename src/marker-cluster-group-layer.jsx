@@ -54,7 +54,7 @@ class MarkerClusterGroupLayer extends RL_MapLayer {
 
     componentWillMount() {
         super.componentWillMount();
-        this.leafletElement = new L.MarkerClusterGroup();
+        this.leafletElement = new L.MarkerClusterGroup({ disableClusteringAtZoom: 10 });
     }
 
     componentDidMount() {
